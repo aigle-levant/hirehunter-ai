@@ -12,7 +12,7 @@ Every great team starts with a great hire. But behind every hiring process, ther
 
 These stories are real.  
 They happen every single day.  
-And they are *preventable.*
+And they are *preventable*.
 
 ## 🧠 Enter HireHunter
 
@@ -21,6 +21,7 @@ And they are *preventable.*
 It’s not just automation. It’s care.
 
 # 🏆 Built With 💙 at Airothon'25
+
 This project answers the call to build agentic AI that solves real pain.
 
 HireHunter is that agent—acting with purpose, empathy, and efficiency.
