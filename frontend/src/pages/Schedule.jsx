@@ -1,9 +1,3 @@
-
 export default function Schedule() {
-    return (
-        <HeroSection/>
-        <SelectedCandidates/>
-        <Modal/>
-        <Rejection/>
-    )
+  return <p>d</p>;
 }

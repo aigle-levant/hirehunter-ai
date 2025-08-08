@@ -1,15 +1,19 @@
 import HeroSection from "../components/home/HeroSection.jsx";
-import Body from "../components/home/Body.jsx";
+import HowItWorks from "../components/home/HowItWorks.jsx";
 import Testimonials from "../components/home/Testimonials.jsx";
-import FAQ from "../components/home/FAQ.jsx";
+import Solution from "../components/home/Solution.jsx";
+import FinalCTA from "../components/home/FinalCTA.jsx";
+import ProblemStatement from "../components/home/ProblemStatement.jsx";
 
 export default function Home() {
   return (
     <section id="home">
       <HeroSection />
-      <Body />
+      <ProblemStatement />
+      <Solution />
+      <HowItWorks />
       <Testimonials />
-      <FAQ />
+      <FinalCTA />
     </section>
   );
 }

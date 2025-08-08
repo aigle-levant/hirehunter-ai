@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { DayPicker } from "react-day-picker";
-import { buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "src/components/ui/button";
 import { cn } from "@/lib/utils";
 import "@/styles/calendar.css"; // Ensure react-day-picker styles are imported
 

@@ -8,7 +8,7 @@ import {
 
 export default function Footer() {
   return (
-    <footer className="fixed w-full bg-blue-950">
+    <footer className="fixed w-full bg-blue-900">
       <div id="final-cta" className="flex flex-row gap-6">
         <p>Lorem ipsum dolor sit amet</p>
         <div id="btn-grp">

@@ -1,10 +1,3 @@
-
 export default function Candidate() {
-    return (
-        <HeroSection/>
-        <ResumeSummary/>
-        <AISuggestion/>
-        <DownloadResume/>
-        <CTA/>
-    )
+  return <p>dd</p>;
 }
