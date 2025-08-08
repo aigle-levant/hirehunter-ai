@@ -1,9 +1,9 @@
-import TestimonialSection16 from "../common/Testimonial";
+import TestimonialsCarousel from "../common/Testimonial";
 
 export default function Testimonials() {
   return (
-    <scetion id="testimonials">
-      <TestimonialSection16 />
-    </scetion>
+    <section id="testimonials">
+      <TestimonialsCarousel />
+    </section>
   );
 }

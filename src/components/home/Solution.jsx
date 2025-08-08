@@ -13,7 +13,7 @@ export default function Solution() {
     <section id="solution" className="font-sans flex flex-row">
       <div className="flex flex-col">
         <h2>
-          Meet<h2 className="text-blue-900 font-bold">Hirehunter</h2>
+          Meet<p className="text-blue-900 font-bold">Hirehunter</p>
         </h2>
         <p>
           Your AI hiring buddy that replaces bias with data and guesswork with

@@ -10,11 +10,12 @@ import {
 
 export default function ProblemStatement() {
   return (
-    <section id="problem">
+    <section id="problem" className="px-6 py-10">
       <h2 className="font-sans">
-        Hiring in 2025 is <p className="text-blue-900 font-bold">broken</p>...
+        Hiring in 2025 is
+        <span className="text-blue-900 font-bold">broken</span>...
       </h2>
-      <div className="flex flex-row">
+      <div className="flex flex-row lg:flex-row gap-6 mt-6">
         <Card>
           <CardHeader>
             <CardTitle>Recruiter</CardTitle>
@@ -53,7 +54,7 @@ export default function ProblemStatement() {
       </div>
       <h3 className="font-sans">
         Fret not, for we have
-        <p className="text-blue-900 font-bold">an antidote</p>!
+        <span className="text-blue-900 font-bold"> an antidote</span>!
       </h3>
     </section>
   );

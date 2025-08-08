@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
+import { Sticker } from "lucide-react";
 
 export default function HeroSection() {
   return (
@@ -18,7 +19,9 @@ export default function HeroSection() {
         </div>
         <div className="bg-amber-50 flex flex-col">
           <div className="flex flex-row">
-            <div className="rounded-full p-4 bg-blue-900"></div>
+            <div className="rounded-full p-4 bg-blue-900">
+              <Sticker size={40} color="#ffffff" absoluteStrokeWidth />
+            </div>
             <div className="rounded-2xl px-5 py-3">
               Hey champ! What would you like to do today?
             </div>

@@ -19,9 +19,9 @@ export default function Navbar() {
     <header
       className={`${
         scrolled ? "top-4" : "-top-32"
-      } fixed top-4 left-1/2 z-50 w-[90%] max-w-4xl -translate-x-1/2 bg-blue-900 px-2 py-1 font-sans`}
+      } rounded-full fixed top-4 left-1/2 z-50 w-[90%] max-w-4xl -translate-x-1/2 bg-blue-900 px-2 py-1 font-sans`}
     >
-      <nav className="rounded-2xl px-6 py-3 shadow-lg backdrop-blur-md border border-[#2F52E0]/20">
+      <nav className="rounded-full px-6 py-3 shadow-lg border border-[#2F52E0]/20">
         <div className="hidden md:flex items-center justify-between">
           <NavLink
             to="/"
