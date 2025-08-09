@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sticker } from "lucide-react";
 
@@ -21,18 +22,22 @@ export default function AIDialog() {
         </p>
       </div>
       <div id="further-btns" className="flex justify-center space-x-6">
-        <Button
-          variant="outline"
-          className="rounded-full px-6 py-2 font-medium hover:bg-blue-100 dark:hover:bg-zinc-700 transition"
-        >
-          Add more resumes
-        </Button>
-        <Button
-          variant="outline"
-          className="rounded-full px-6 py-2 font-medium hover:bg-blue-100 dark:hover:bg-zinc-700 transition"
-        >
-          Go to leaderboard
-        </Button>
+        <NavLink to="/parser" className="w-max">
+          <Button
+            variant="outline"
+            className="rounded-full px-6 py-2 font-medium hover:bg-blue-100 dark:hover:bg-zinc-700 transition"
+          >
+            Add more resumes
+          </Button>
+        </NavLink>
+        <NavLink to="/leaderboard" className="w-max">
+          <Button
+            variant="outline"
+            className="rounded-full px-6 py-2 font-medium hover:bg-blue-100 dark:hover:bg-zinc-700 transition"
+          >
+            Go to leaderboard
+          </Button>
+        </NavLink>
       </div>
     </div>
   );

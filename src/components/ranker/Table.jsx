@@ -178,7 +178,7 @@ export default function ResumeLeaderboard() {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full font-body">
       <div className="flex items-center py-4 gap-4">
         <Input
           placeholder="Filter skills..."
@@ -237,10 +237,10 @@ export default function ResumeLeaderboard() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row, index) => {
                 let bgClass = "";
-                if (index === 0) bgClass = "bg-yellow-300"; // gold
-                else if (index === 1) bgClass = "bg-gray-300"; // silver
+                if (index === 0) bgClass = "bg-yellow-300";
+                else if (index === 1) bgClass = "bg-gray-300";
                 else if (index === 2)
-                  bgClass = "bg-amber-700 text-white hover:text-black"; // bronze (darker amber)
+                  bgClass = "bg-amber-700 text-white hover:text-black";
 
                 return (
                   <TableRow
