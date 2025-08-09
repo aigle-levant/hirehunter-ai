@@ -64,15 +64,23 @@ While we used an open stack to move quickly during the hackathon, our architectu
 
 ## 🛠️ Try it Yourself
 
-```bash
-# Backend
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload
+1. Star and fork the repo
 
-# Frontend
-cd frontend
+2. Then clone the repo from your username:
+
+```bash
+gh repo clone your-username/hirehunter-ai
+```
+
+3. Install dependencies
+
+```bash
 npm install
+```
+
+4. Start the server
+
+```bash
 npm run dev
 ```
 
