@@ -3,7 +3,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    }
+    },
+    "types": ["node", "estree", "json-schema"]
   },
   "exclude": ["node_modules"]
 }
