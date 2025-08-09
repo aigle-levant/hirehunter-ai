@@ -2,12 +2,12 @@ import { DotLottiePlayer } from "@dotlottie/react-player";
 
 export default function LoadingScreen() {
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-white z-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
       <DotLottiePlayer
         src="/loading.lottie"
         autoplay
         loop
-        style={{ height: 500, width: 500 }}
+        className="h-[500px] w-[500px]"
       />
     </div>
   );
