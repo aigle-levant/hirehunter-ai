@@ -41,7 +41,9 @@ All on one sleek, judgment-free dashboard.
 > “Here are 3 candidates who match your hiring criteria. Would you like me to schedule interviews?”  
 > – *HireHunter Agent*
 
-🚀 [Include Screenshot or GIF here]
+<img width="1573" height="791" alt="image" src="https://github.com/user-attachments/assets/f5d9c7bd-f810-48af-83d9-f533aa01f6e2" />
+
+<img width="1021" height="425" alt="image" src="https://github.com/user-attachments/assets/093c6295-46a0-4b07-9cbf-893b742bc8de" />
 
 ## 🔧 Tech Stack
 
@@ -64,15 +66,23 @@ While we used an open stack to move quickly during the hackathon, our architectu
 
 ## 🛠️ Try it Yourself
 
-```bash
-# Backend
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload
+1. Star and fork the repo
 
-# Frontend
-cd frontend
+2. Then clone the repo from your username:
+
+```bash
+gh repo clone your-username/hirehunter-ai
+```
+
+3. Install dependencies
+
+```bash
 npm install
+```
+
+4. Start the server
+
+```bash
 npm run dev
 ```
 
