@@ -1,17 +1,22 @@
-import React, { useState } from "react";
+import * as React from "react";
 import {
+  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown } from "lucide-react";
+import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -23,24 +28,58 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
+import { useNavigate } from "react-router-dom";
 import { candidates } from "@/data/candidates";
 
-const columns = [
+export const columns = [
+  {
+    id: "select",
+    header: ({ table }) => {
+      const isChecked = table.getIsAllPageRowsSelected();
+      const isIndeterminate = table.getIsSomePageRowsSelected();
+
+      return (
+        <Checkbox
+          checked={isChecked}
+          indeterminate={isIndeterminate && !isChecked}
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all rows"
+        />
+      );
+    },
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
   {
     accessorKey: "name",
     header: ({ column }) => (
       <Button
         variant="ghost"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="flex items-center gap-1"
       >
-        Name <ArrowUpDown className="ml-2 h-4 w-4" />
+        Name <ArrowUpDown className="h-4 w-4" />
       </Button>
     ),
   },
   {
     accessorKey: "email",
-    header: "Email",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="flex items-center gap-1"
+      >
+        Email <ArrowUpDown className="h-4 w-4" />
+      </Button>
+    ),
     cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
   },
   {
@@ -65,54 +104,97 @@ const columns = [
   },
   {
     accessorKey: "yoe",
-    header: "YOE",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="flex items-center gap-1"
+      >
+        YOE <ArrowUpDown className="h-4 w-4" />
+      </Button>
+    ),
   },
   {
     accessorKey: "skills",
-    header: "Skills",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        className="flex items-center gap-1 justify-end"
+      >
+        Skills <ArrowUpDown className="h-4 w-4" />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const skillsString = row.getValue("skills") || "";
+      const skillsArray = skillsString.split(",").map((s) => s.trim());
+      return (
+        <div className="flex flex-wrap justify-end gap-1">
+          {skillsArray.map((skill, i) => (
+            <span
+              key={i}
+              className="inline-block bg-blue-100 text-blue-800 text-xs font-medium px-2 py-0.5 rounded-full whitespace-nowrap"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+      );
+    },
   },
 ];
 
 export default function ResumeLeaderboard() {
-  const [sorting, setSorting] = useState([]);
-  const [columnFilters, setColumnFilters] = useState([]);
-  const [columnVisibility, setColumnVisibility] = useState({});
-  const [rowSelection, setRowSelection] = useState({});
+  const [sorting, setSorting] = React.useState([]);
+  const [columnFilters, setColumnFilters] = React.useState([]);
+  const [columnVisibility, setColumnVisibility] = React.useState({});
+  const [rowSelection, setRowSelection] = React.useState({});
+  const navigate = useNavigate();
 
   const table = useReactTable({
     data: candidates,
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
-    getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
     },
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
+    onRowSelectionChange: setRowSelection,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
   });
+
+  function handleSchedule() {
+    const selectedRows = table.getSelectedRowModel().rows;
+    const selectedData = selectedRows.map((row) => row.original);
+
+    navigate("/schedule", { state: { candidates: selectedData } });
+  }
 
   return (
     <div className="w-full">
-      <div className="flex items-center py-4">
+      <div className="flex items-center py-4 gap-4">
         <Input
-          placeholder="Filter by name..."
-          value={table.getColumn("name")?.getFilterValue() ?? ""}
+          placeholder="Filter skills..."
+          value={table.getColumn("skills")?.getFilterValue() ?? ""}
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("skills")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns <ChevronDown className="ml-2 h-4 w-4" />
+            <Button
+              variant="outline"
+              className="ml-auto flex items-center gap-1"
+            >
+              Columns <ChevronDown className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
@@ -142,26 +224,47 @@ export default function ResumeLeaderboard() {
                   <TableHead key={header.id}>
                     {header.isPlaceholder
                       ? null
-                      : header.column.columnDef.header instanceof Function
-                      ? header.column.columnDef.header(header.getContext())
-                      : header.column.columnDef.header}
+                      : flexRender(
+                          header.column.columnDef.header,
+                          header.getContext()
+                        )}
                   </TableHead>
                 ))}
               </TableRow>
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>{cell.renderValue()}</TableCell>
-                  ))}
-                </TableRow>
-              ))
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row, index) => {
+                let bgClass = "";
+                if (index === 0) bgClass = "bg-yellow-300"; // gold
+                else if (index === 1) bgClass = "bg-gray-300"; // silver
+                else if (index === 2)
+                  bgClass = "bg-amber-700 text-white hover:text-black"; // bronze (darker amber)
+
+                return (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() ? "selected" : undefined}
+                    className={bgClass}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                );
+              })
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="text-center">
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-24 text-center"
+                >
                   No results.
                 </TableCell>
               </TableRow>
@@ -171,11 +274,19 @@ export default function ResumeLeaderboard() {
       </div>
 
       <div className="flex items-center justify-end space-x-2 py-4">
-        <div className="text-sm text-muted-foreground flex-1">
+        <div className="text-muted-foreground flex-1 text-sm">
           {table.getFilteredSelectedRowModel().rows.length} of{" "}
           {table.getFilteredRowModel().rows.length} row(s) selected.
         </div>
-        <div className="space-x-2">
+        <div className="space-x-2 flex items-center">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleSchedule}
+            disabled={table.getFilteredSelectedRowModel().rows.length === 0}
+          >
+            Send to Scheduler
+          </Button>
           <Button
             variant="outline"
             size="sm"
