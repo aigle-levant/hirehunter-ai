@@ -36,7 +36,6 @@ export default function HowItWorks() {
         </h2>
 
         <div className="relative">
-          {/* Vertical timeline line */}
           <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-blue-300 -translate-x-1/2 rounded-full"></div>
 
           <div className="flex flex-col space-y-16">
@@ -59,7 +58,6 @@ export default function HowItWorks() {
                   }`}
                 >
                   <div className="relative flex items-center gap-6">
-                    {/* Step number circle */}
                     <motion.div
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
@@ -73,14 +71,12 @@ export default function HowItWorks() {
                       {i + 1}
                     </motion.div>
 
-                    {/* Connecting dot and line */}
                     <div
                       className={`absolute top-6 left-12 h-1 w-6 bg-blue-300 ${
                         isLeft ? "rounded-l-full" : "rounded-r-full"
                       }`}
                     ></div>
 
-                    {/* Card */}
                     <motion.div
                       whileHover={{
                         scale: 1.03,

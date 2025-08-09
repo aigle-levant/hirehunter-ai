@@ -53,7 +53,11 @@ export default function Navbar() {
                 className="text-xl font-bold font-sans transition-colors duration-200 relative group"
               >
                 Hirehunter
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                <span
+                  className={`absolute bottom-0 left-0 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${
+                    scrolled ? "bg-gray-900" : "bg-white"
+                  }`}
+                />
               </NavLink>
 
               <div className="flex items-center space-x-8">
@@ -64,7 +68,11 @@ export default function Navbar() {
                     className="font-body relative group"
                   >
                     {link.charAt(0).toUpperCase() + link.slice(1)}
-                    <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                    <span
+                      className={`absolute bottom-0 left-0 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${
+                        scrolled ? "bg-gray-900" : "bg-white"
+                      }`}
+                    />
                   </NavLink>
                 ))}
               </div>
@@ -85,7 +93,11 @@ export default function Navbar() {
                 className="font-bold text-white text-lg relative group"
               >
                 Hirehunter
-                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                <span
+                  className={`absolute bottom-0 left-0 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${
+                    scrolled ? "bg-gray-900" : "bg-white"
+                  }`}
+                />
               </NavLink>
 
               <div className="flex items-center space-x-2">
@@ -123,7 +135,11 @@ export default function Navbar() {
                         className="relative group"
                       >
                         {link.charAt(0).toUpperCase() + link.slice(1)}
-                        <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-white transition-all duration-300 group-hover:w-full"></span>
+                        <span
+                          className={`absolute bottom-0 left-0 w-0 h-[2px] transition-all duration-300 group-hover:w-full ${
+                            scrolled ? "bg-gray-900" : "bg-white"
+                          }`}
+                        />
                       </NavLink>
                     ))}
                   </div>

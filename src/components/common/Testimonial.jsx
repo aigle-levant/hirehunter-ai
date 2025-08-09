@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Quote } from "lucide-react";
 
 const testimonials = [
   {
@@ -28,43 +29,65 @@ export default function TestimonialsCarousel() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((i) => (i + 1) % testimonials.length);
-    }, 2000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
   const testimonial = testimonials[index];
 
   return (
-    <div className="w-full max-w-3xl mx-auto text-center px-4">
+    <div className="w-full max-w-3xl mx-auto px-6 py-12 text-center">
       <AnimatePresence mode="wait">
         <motion.div
           key={index}
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.4 }}
-          className="bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg"
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="relative bg-gradient-to-br from-white/40 to-white/10 dark:from-zinc-900/60 dark:to-zinc-900/40 backdrop-blur-md rounded-3xl p-10 shadow-lg"
         >
-          <p className="text-lg italic text-gray-700 dark:text-gray-300 mb-4">
+          <Quote
+            className="absolute top-4 right-4 w-6 h-6 text-blue-400 opacity-20"
+            aria-hidden="true"
+          />
+          <p className="text-lg italic text-gray-900 dark:text-gray-200 mb-8 leading-relaxed max-w-[600px] mx-auto">
             “{testimonial.title}”
           </p>
-          <div className="text-sm font-semibold text-gray-900 dark:text-white">
+          <h3 className="relative inline-block text-2xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-400">
             {testimonial.client}
-          </div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">
+            <motion.span
+              layoutId="highlight"
+              className="absolute inset-0 rounded-md bg-gradient-to-r from-blue-200/40 to-cyan-300/30 blur-lg -z-10"
+              transition={{ duration: 0.4 }}
+            />
+          </h3>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
             {testimonial.clientInfo}
-          </div>
+          </p>
         </motion.div>
       </AnimatePresence>
 
-      <div className="flex justify-center gap-2 mt-4">
+      {/* Dots */}
+      <div className="flex justify-center gap-4 mt-10">
         {testimonials.map((_, i) => (
-          <button
+          <motion.button
             key={i}
             onClick={() => setIndex(i)}
-            className={`h-2 w-2 rounded-full ${
-              i === index ? "bg-blue-600" : "bg-gray-300"
-            }`}
+            aria-label={`Show testimonial ${i + 1}`}
+            className="rounded-full bg-gray-300 dark:bg-zinc-600"
+            initial={false}
+            animate={{
+              scale: i === index ? 1.6 : 1,
+              backgroundColor: i === index ? "#22d3ee" : "#94a3b8",
+              opacity: i === index ? 1 : 0.6,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 20,
+            }}
+            whileHover={{ scale: 1.8, opacity: 1 }}
+            style={{ width: 12, height: 12 }}
           />
         ))}
       </div>
