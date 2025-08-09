@@ -51,7 +51,11 @@ export default function ProblemStatement() {
   ];
 
   return (
-    <section id="problem" className="px-6 py-10">
+    <section
+      id="problem"
+      className="px-6 py-10 transition-colors duration-300
+                 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-gray-200"
+    >
       <motion.h2
         className="font-sans text-3xl md:text-4xl"
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -60,7 +64,10 @@ export default function ProblemStatement() {
         viewport={{ once: true, amount: 0.5 }}
       >
         Hiring in 2025 is{" "}
-        <span className="text-blue-900 font-bold">broken</span>...
+        <span className="text-blue-900 dark:text-blue-400 font-bold">
+          broken
+        </span>
+        ...
       </motion.h2>
 
       <motion.div
@@ -71,14 +78,18 @@ export default function ProblemStatement() {
         viewport={{ once: true, amount: 0.3 }}
       >
         {cards.map((item, i) => (
-          <motion.div key={i} variants={cardVariants}>
-            <Card className="shadow-lg rounded-xl overflow-hidden backdrop-blur-md bg-white/70">
+          <motion.div key={i} variants={cardVariants} className="flex-1">
+            <Card className="shadow-lg rounded-xl overflow-hidden backdrop-blur-md bg-white/70 dark:bg-zinc-800/70 transition-colors duration-300">
               <CardHeader>
-                <CardTitle>{item.title}</CardTitle>
-                <CardDescription>{item.desc}</CardDescription>
+                <CardTitle className="dark:text-gray-100">
+                  {item.title}
+                </CardTitle>
+                <CardDescription className="dark:text-gray-400">
+                  {item.desc}
+                </CardDescription>
               </CardHeader>
               <CardContent>
-                <p>{item.text}</p>
+                <p className="dark:text-gray-300">{item.text}</p>
               </CardContent>
             </Card>
           </motion.div>
@@ -93,7 +104,11 @@ export default function ProblemStatement() {
         viewport={{ once: true }}
       >
         Fret not, for we have
-        <span className="text-blue-900 font-bold"> an antidote</span>!
+        <span className="text-blue-900 dark:text-blue-400 font-bold">
+          {" "}
+          an antidote
+        </span>
+        !
       </motion.h3>
     </section>
   );

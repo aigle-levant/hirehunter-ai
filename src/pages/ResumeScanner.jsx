@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Resume from "../components/parser/Resume";
 import ResumeUpload from "../components/parser/ResumeUpload";
 import ResumeDetails from "../components/parser/ResumeDetails";
@@ -23,10 +23,10 @@ export default function ResumeScanner() {
       setIsParsing(false);
       setIsParsed(true);
       setShowAIDialog(true);
-      // Scroll into view after parsing done
+      // Scroll AI dialog into view smoothly
       document
         .getElementById("ai-dialog")
-        ?.scrollIntoView({ behavior: "smooth" });
+        ?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 2000);
   };
 
@@ -38,11 +38,15 @@ export default function ResumeScanner() {
   };
 
   return (
-    <section id="resume" className="font-body max-w-7xl mx-auto p-6 space-y-8">
+    <section
+      id="resume"
+      className="font-body max-w-7xl mx-auto p-6 space-y-8
+                 bg-white dark:bg-zinc-900 transition-colors duration-300"
+    >
       <TypingText
         text="Parse Your Resume"
         speed={100}
-        className="text-3xl font-sans font-semibold mb-4 ml-5 text-blue-900"
+        className="text-3xl font-sans font-semibold mb-4 ml-5 text-blue-900 dark:text-blue-400"
       />
 
       <div className="flex flex-col md:flex-row gap-10">
@@ -50,7 +54,11 @@ export default function ResumeScanner() {
           <Resume />
         </div>
 
-        <div className="flex-1 flex flex-col space-y-6 bg-white dark:bg-zinc-900 rounded-xl p-6 shadow-lg">
+        <div
+          className="flex-1 flex flex-col space-y-6 rounded-xl p-6 shadow-lg
+                        bg-white dark:bg-zinc-800 border border-gray-200 dark:border-zinc-700
+                        transition-colors duration-300"
+        >
           <div className="flex items-center space-x-4">
             <div className="rounded-full bg-blue-900 p-4 flex-shrink-0">
               <Sticker size={40} color="#fff" strokeWidth={1.5} />
@@ -110,7 +118,7 @@ export default function ResumeScanner() {
         {showAIDialog && (
           <div
             id="ai-dialog"
-            className="transform transition duration-500 ease-out opacity-0 translate-y-6 animate-slide-up"
+            className="animate-slide-up"
             style={{ animationFillMode: "forwards" }}
           >
             <AIDialog />

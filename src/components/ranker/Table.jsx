@@ -237,19 +237,28 @@ export default function ResumeLeaderboard() {
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row, index) => {
                 let bgClass = "";
-                if (index === 0) bgClass = "bg-yellow-300";
-                else if (index === 1) bgClass = "bg-gray-300";
-                else if (index === 2)
-                  bgClass = "bg-amber-700 text-white hover:text-black";
+                let textClass = "dark:text-gray-100";
+
+                if (index === 0) {
+                  bgClass = "bg-yellow-300 dark:bg-yellow-600";
+                  textClass = "dark:text-black";
+                } else if (index === 1) {
+                  bgClass = "bg-gray-300 ";
+                  textClass = "dark:text-black";
+                } else if (index === 2) {
+                  bgClass =
+                    "bg-amber-700 text-white hover:text-black dark:hover:text-white";
+                  textClass = "dark:text-black";
+                }
 
                 return (
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() ? "selected" : undefined}
-                    className={bgClass}
+                    className={`${bgClass} ${textClass}`}
                   >
                     {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
+                      <TableCell key={cell.id} className="dark:border-gray-600">
                         {flexRender(
                           cell.column.columnDef.cell,
                           cell.getContext()
@@ -263,7 +272,7 @@ export default function ResumeLeaderboard() {
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center"
+                  className="h-24 text-center dark:text-gray-300"
                 >
                   No results.
                 </TableCell>
