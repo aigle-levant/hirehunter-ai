@@ -122,11 +122,17 @@ const resume = [
 
 export default function ResumeDetails() {
   return (
-    <div id="resume-details" className="font-sans">
-      <h3>Here's what I've learnt from this resume</h3>
-      <Table>
+    <div
+      id="resume-details"
+      className="font-sans bg-white dark:bg-zinc-900 rounded-2xl p-6 shadow-lg max-w-full overflow-x-auto"
+    >
+      <h3 className="text-xl font-semibold mb-6 text-gray-900 dark:text-gray-100">
+        Here's what I've learnt from this resume
+      </h3>
+
+      <Table className="min-w-[900px]">
         <TableHeader>
-          <TableRow>
+          <TableRow className="bg-blue-50 dark:bg-zinc-800">
             <TableHead className="w-[100px]">Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Phone number</TableHead>
@@ -138,9 +144,13 @@ export default function ResumeDetails() {
             <TableHead className="text-right">Skills</TableHead>
           </TableRow>
         </TableHeader>
+
         <TableBody>
           {resume.map((re) => (
-            <TableRow key={re.email}>
+            <TableRow
+              key={re.email}
+              className="odd:bg-white even:bg-blue-50 dark:odd:bg-zinc-900 dark:even:bg-zinc-800"
+            >
               <TableCell className="font-medium">{re.name}</TableCell>
               <TableCell>{re.email}</TableCell>
               <TableCell>{re.phone}</TableCell>
@@ -149,7 +159,18 @@ export default function ResumeDetails() {
               <TableCell>{re.company}</TableCell>
               <TableCell>{re.degree}</TableCell>
               <TableCell>{re.yoe}</TableCell>
-              <TableCell className="text-right">{re.skills}</TableCell>
+              <TableCell className="text-right">
+                <div className="flex flex-wrap justify-end gap-2">
+                  {re.skills.split(",").map((skill) => (
+                    <span
+                      key={skill.trim()}
+                      className="inline-block bg-blue-200 dark:bg-blue-700 text-blue-900 dark:text-blue-100 text-xs font-semibold px-2 py-1 rounded-full whitespace-nowrap"
+                    >
+                      {skill.trim()}
+                    </span>
+                  ))}
+                </div>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
