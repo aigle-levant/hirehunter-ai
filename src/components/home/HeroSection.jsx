@@ -79,10 +79,7 @@ export default function HeroSection() {
                 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
-                <Button
-                  variant="outline"
-                  className="w-full bg-blue-900 hover:bg-blue-800 text-white border-none"
-                >
+                <Button className="w-full rounded-3xl text-white border-none">
                   <NavLink
                     to={btn.to}
                     className="block w-full text-center font-medium text-white"
