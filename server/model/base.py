@@ -11,6 +11,20 @@ class JobDesc(BaseModel):
     title: str
     description: str
 
+class Resume(BaseModel):
+    name: str
+    email: str
+    phone_number: str
+    skills: List[str]
+    experience: float
+
+class ResumeUpdate(BaseModel):
+    name: Optional[str] = None
+    email: Optional[str] = None
+    phone_number: Optional[str] = None
+    skills: Optional[List[str]] = None
+    experience: Optional[float] = None
+
 class ResumeDB(BaseModel):
     id: Optional[int]
     filename: str
