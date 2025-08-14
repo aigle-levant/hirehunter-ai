@@ -1,0 +1,9 @@
+fastapi[all]
+uvicorn
+pydantic
+bcrypt
+supabase
+pymupdf
+python-docx
+tokenizer
+python-dotenv
