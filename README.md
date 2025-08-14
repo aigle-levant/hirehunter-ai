@@ -74,19 +74,23 @@ While we used an open stack to move quickly during the hackathon, our architectu
 gh repo clone your-username/hirehunter-ai
 ```
 
-3. Install dependencies
+### Client-side
 
 ```bash
+cd client
 npm install
-```
-
-4. Start the server
-
-```bash
 npm run dev
 ```
 
-# 💬 Final Thought
+### Server-side
+
+```bash
+cd server
+./venv/Scripts/activate
+fastapi dev main.py
+```
+
+## 💬 Final Thought
 
 “Not every candidate gets a fair shot. Not every recruiter has the time.
 We built HireHunter to bring empathy back to hiring—at scale.”
