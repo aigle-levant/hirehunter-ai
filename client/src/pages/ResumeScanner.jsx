@@ -23,7 +23,6 @@ export default function ResumeScanner() {
       setIsParsing(false);
       setIsParsed(true);
       setShowAIDialog(true);
-      // Scroll AI dialog into view smoothly
       document
         .getElementById("ai-dialog")
         ?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -68,7 +67,7 @@ export default function ResumeScanner() {
             </p>
           </div>
 
-          <ResumeUpload onUpload={() => setIsUploaded(true)} />
+          <ResumeUpload />
 
           <div className="flex justify-center space-x-4 mt-4">
             <Button

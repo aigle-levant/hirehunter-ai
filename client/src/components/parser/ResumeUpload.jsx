@@ -1,16 +1,35 @@
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
+import axios from "axios";
 
-export default function ResumeUpload({ onUpload }) {
+export default function ResumeUpload() {
   const [fileName, setFileName] = useState("");
   const fileInputRef = useRef(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setFileName(file.name);
-      onUpload && onUpload(file);
+      setSelectedFile(file);
+      uploadFile(file);
     }
+  };
+
+  const uploadFile = (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+
+    axios
+      .post("http://localhost:8000/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => {
+        console.log("Server response:", res.data);
+      })
+      .catch((err) => {
+        console.error("Upload error:", err);
+      });
   };
 
   const handleDrop = (e) => {
@@ -18,7 +37,8 @@ export default function ResumeUpload({ onUpload }) {
     const file = e.dataTransfer.files[0];
     if (file && file.type === "application/pdf") {
       setFileName(file.name);
-      onUpload && onUpload(file);
+      setSelectedFile(file);
+      uploadFile(file);
     } else {
       alert("Please upload a PDF file.");
     }

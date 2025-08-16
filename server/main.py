@@ -1,12 +1,26 @@
 # modules
+from routes.upload_resume import router as upload_resume_router
 from supabase_client.supabase import create_supabase_client
 import supabase
 from model.base import Resume, ResumeUploadResponse, ResumeUpdate, JobDesc, ResumeDB, KeywordMatch, ResumeRankResponse
 # libraries
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 supabase = create_supabase_client()
+
+# define cors
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173/"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# use endpoints
+app.include_router(upload_resume_router)
 
 # for everything else
 @app.get("/")
@@ -30,7 +44,7 @@ async def get_resume(resume_id: int):
 @app.delete("/resumes/{resume_id}")
 async def delete_resume(resume_id: int):
     exist = supabase.table("resumes").select("*").eq("id", resume_id).execute()
-    if not exist:
+    if not exist.data:
         raise HTTPException(status_code=404, detail=f"Item with id {resume_id} not found...")
     resumes = supabase.table("resumes").delete().eq("id", resume_id).execute()
     return { "message" : f"Resume with id {resume_id} deleted successfully!"}

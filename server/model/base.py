@@ -8,7 +8,6 @@ class ResumeUploadResponse(BaseModel):
     message: str
 
 class JobDesc(BaseModel):
-    title: str
     description: str
 
 class Resume(BaseModel):
