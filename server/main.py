@@ -1,13 +1,17 @@
 # modules
 from routes.upload_resume import router as upload_resume_router
+from routes.extract_jd_keywords import router as jd_router
 from supabase_client.supabase import create_supabase_client
 import supabase
+import os
 from model.base import Resume, ResumeUploadResponse, ResumeUpdate, JobDesc, ResumeDB, KeywordMatch, ResumeRankResponse
 # libraries
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
+# to fix that one annoying supabase error
 supabase = create_supabase_client()
 
 # define cors
@@ -19,8 +23,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# mount the files
+dist_path = os.path.join(os.path.dirname(__file__), "../client/dist/")
+app.mount("/", StaticFiles(directory=dist_path, html=True), name="static")
+
 # use endpoints
-app.include_router(upload_resume_router)
+app.include_router(upload_resume_router, prefix="/api")
+app.include_router(jd_router)
 
 # for everything else
 @app.get("/")
