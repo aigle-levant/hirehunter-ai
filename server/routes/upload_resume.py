@@ -1,9 +1,11 @@
 from fastapi import APIRouter, File, UploadFile, HTTPException
 from services.resume_parser import parse_my_resume
 from utils.extract_extra_info import extract_extra_info
-from supabase_client.supabase import supabase
+from supabase_client.supabase import create_supabase_client
 from model.base import Resume
 import datetime
+
+supabase = create_supabase_client()
 
 # prefix -> adds upload in front of all routes in here
 router = APIRouter(prefix="/upload")
