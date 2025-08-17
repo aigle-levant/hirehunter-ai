@@ -25,42 +25,26 @@ export default function HeroSection() {
         </Button>
       </div>
 
-      <style jsx>{`
-        @keyframes float {
-          0% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
-          100% {
-            transform: translateY(0px);
-          }
-        }
-        .animate-float {
-          animation: float 4s ease-in-out infinite;
-        }
-        .animate-bounce-hover:hover {
-          animation: bounceHover 0.6s ease-in-out;
-        }
-        @keyframes bounceHover {
-          0% {
-            transform: scale(1);
-          }
-          30% {
-            transform: scale(1.15);
-          }
-          50% {
-            transform: scale(1.05);
-          }
-          70% {
-            transform: scale(1.12);
-          }
-          100% {
-            transform: scale(1.1);
-          }
-        }
-      `}</style>
+      <style>{`
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  .animate-bounce-hover:hover {
+    animation: bounceHover 0.6s ease-in-out;
+  }
+  @keyframes bounceHover {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.15); }
+    50% { transform: scale(1.05); }
+    70% { transform: scale(1.12); }
+    100% { transform: scale(1.1); }
+  }
+`}</style>
     </section>
   );
 }

@@ -31,7 +31,7 @@ export default function JDInput() {
     try {
       setLoading(true);
       const res = await analyzeMultipleJD(jobDescriptions);
-      setKeywords(res.keywords || []); // adjust to match backend response
+      setKeywords(res.keywords || []);
     } catch (err) {
       console.error("Error analyzing JDs:", err);
     } finally {
