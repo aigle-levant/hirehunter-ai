@@ -2,13 +2,13 @@ import { Button } from "@/components/ui/button";
 import {
   LayoutDashboard,
   Briefcase,
-  Users,
   Calendar,
-  BarChart2,
   MessageSquare,
   Settings,
   User,
   ChevronLeft,
+  FileUser,
+  ShieldHalf,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -20,13 +20,16 @@ export default function SideNavbar() {
       name: "Dashboard",
       icon: LayoutDashboard,
       href: "/dashboard",
-      badge: null,
     },
-    { name: "Jobs", icon: Briefcase, href: "/jobs", badge: "5" },
-    { name: "Candidates", icon: Users, href: "/candidates", badge: "12" },
-    { name: "Schedule", icon: Calendar, href: "/schedule", badge: null },
-    { name: "Analytics", icon: BarChart2, href: "/analytics", badge: null },
-    { name: "Feedback", icon: MessageSquare, href: "/feedback", badge: "3" },
+    {
+      name: "Jobs",
+      icon: Briefcase,
+      href: "/jobs",
+    },
+    { name: "Parser", icon: FileUser, href: "/candidates" },
+    { name: "Schedule", icon: Calendar, href: "/schedule" },
+    { name: "Leaderboard", icon: ShieldHalf, href: "/analytics" },
+    { name: "Feedback", icon: MessageSquare, href: "/feedback" },
   ];
 
   return (

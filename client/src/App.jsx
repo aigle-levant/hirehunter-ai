@@ -5,6 +5,7 @@ import Schedule from "./pages/Schedule";
 import About from "./pages/About";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Jobs from "./pages/Jobs";
 import Default from "./layout/Default";
 import Auth from "./layout/Auth";
 import DashboardLayout from "./layout/DashboardLayout";
@@ -24,6 +25,7 @@ export default function App() {
 
       <Route element={<DashboardLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/jobs" element={<Jobs />} />
         <Route path="/scan" element={<Resumes />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/schedule" element={<Schedule />} />
