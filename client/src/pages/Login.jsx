@@ -125,7 +125,7 @@ export default function Login() {
               className="flex-1 py-3 px-6 text-base font-medium bg-black dark:bg-white dark:text-black text-white"
               size="lg"
             >
-              Go to dashboard
+              <a href="/dashboard">Go to dashboard</a>
             </Button>
             <Button
               variant="ghost"
