@@ -2,7 +2,7 @@ from fastapi import APIRouter, File, UploadFile, HTTPException
 from services.resume_parser import parse_my_resume
 from utils.extract_extra_info import extract_extra_info
 from supabase_client.supabase import create_supabase_client
-from model.base import Resume
+from model.base import ResumeFile
 import datetime
 
 supabase = create_supabase_client()
@@ -22,11 +22,11 @@ async def upload_resume(file: UploadFile = File(...)):
         text = parse_my_resume(file_bytes, extension)
         
         # data to be inserted
-        data = Resume(
-            filename = file.filename,
-            file_ext = extension,
-            content = text,
-            uploaded_at = datetime.datetime.now(datetime.UTC)
+        data = ResumeFile(
+            filename=file.filename,
+            file_ext=extension,
+            content=text,
+            uploaded_at=datetime.datetime.now(datetime.UTC)
         )
         supabase.table("resumes").insert(data.model_dump()).execute()
         

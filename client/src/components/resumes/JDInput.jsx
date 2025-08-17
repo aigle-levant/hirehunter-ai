@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { X, Plus, AlertTriangle, ArrowRight } from "lucide-react";
-import { analyzeMultipleJD } from "../../services/api";
+import { mockJDs } from "../../services/data";
 
 export default function JDInput() {
   const [jobDescriptions, setJobDescriptions] = useState([""]);
@@ -21,22 +21,26 @@ export default function JDInput() {
     setJobDescriptions([...jobDescriptions, ""]);
   };
 
-  // remove keyword pill
-  const removeKeyword = (index) => {
-    setKeywords(keywords.filter((_, i) => i !== index));
+  // remove textarea
+  const handleRemoveJD = (index) => {
+    const updated = [...jobDescriptions];
+    updated.splice(index, 1);
+    setJobDescriptions(updated);
   };
 
-  // call backend
+  // use mock data instead of backend
   const handleProceed = async () => {
-    try {
-      setLoading(true);
-      const res = await analyzeMultipleJD(jobDescriptions);
-      setKeywords(res.keywords || []);
-    } catch (err) {
-      console.error("Error analyzing JDs:", err);
-    } finally {
-      setLoading(false);
-    }
+    setLoading(true);
+
+    const res = jobDescriptions.map((jd) => {
+      const found = mockJDs.find((m) =>
+        jd.toLowerCase().includes(m.jd.toLowerCase())
+      );
+      return found || { jd, keywords: ["sample", "keywords"] };
+    });
+
+    setKeywords(res);
+    setLoading(false);
   };
 
   return (
@@ -66,105 +70,67 @@ export default function JDInput() {
       </div>
 
       {/* input textareas */}
-      <div className="w-full space-y-6">
+      <div className="flex flex-col gap-6 w-full">
         {jobDescriptions.map((jd, index) => (
-          <div key={index} className="space-y-2">
-            <label
-              htmlFor={`job-description-${index}`}
-              className="text-lg font-semibold text-gray-700"
-            >
-              Job Description {index + 1}
-            </label>
+          <div key={index} className="relative">
             <Textarea
-              id={`job-description-${index}`}
               value={jd}
               onChange={(e) => handleChange(index, e.target.value)}
-              placeholder="Paste the complete job description here... Include requirements, responsibilities, qualifications, and any other relevant details."
-              className="h-64 p-6 text-gray-700 placeholder-gray-400 resize-none"
+              placeholder={`Paste Job Description ${index + 1} here...`}
+              className="min-h-[180px] pr-12"
             />
+            {jobDescriptions.length > 1 && (
+              <button
+                type="button"
+                onClick={() => handleRemoveJD(index)}
+                className="absolute top-3 right-3 text-muted-foreground hover:text-foreground"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            )}
           </div>
         ))}
       </div>
 
       {/* button container */}
-      <div className="flex flex-row gap-6">
-        <Button
-          variant="outline"
-          onClick={handleAddJD}
-          className="group px-6 py-3 text-lg border-2 border-gray-300 hover:border-blue-400 transition-all duration-300 hover:bg-blue-50"
-        >
-          <Plus className="w-5 h-5 mr-2 rounded-xl text-gray-500 group-hover:rotate-90 group-hover:text-blue-500 transition-all duration-300" />
-          <span className="group-hover:text-blue-600 transition-colors duration-300">
-            Add Another
-          </span>
+      <div className="flex gap-4 flex-wrap justify-center">
+        <Button variant="outline" onClick={handleAddJD}>
+          <Plus className="w-4 h-4 mr-2" />
+          Add another
         </Button>
-
-        <Button
-          onClick={handleProceed}
-          disabled={loading}
-          className="group relative px-8 py-3 text-lg bg-white border-2 border-transparent hover:bg-blue-600 bg-clip-padding shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden rounded-xl"
-          style={{
-            background:
-              "linear-gradient(white, white) padding-box, linear-gradient(to right, #2563eb, #4f46e5) border-box",
-          }}
-        >
-          <span className="absolute inset-0 bg-gradient-to-r from-blue-600/10 to-indigo-600/10 translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700 ease-in-out" />
-          <span className="relative text-gray-800 group-hover:text-white transition-colors duration-300">
-            {loading ? "Analyzing..." : "Proceed"}
-          </span>
+        <Button onClick={handleProceed} disabled={loading}>
+          {loading ? "Analyzing..." : "Proceed"}
+          <ArrowRight className="w-4 h-4 ml-2" />
         </Button>
       </div>
 
-      {/* keywords */}
+      {/* grouped keywords per JD */}
       {keywords.length > 0 && (
-        <div className="w-full space-y-6">
-          <div className="text-center">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-2">
-              Keywords Found
-            </h3>
-            <p className="text-gray-600">Look what I found!</p>
-          </div>
-
-          <div className="flex flex-wrap gap-4 justify-center">
-            {keywords.map((keyword, index) => {
-              const colors = [
-                "bg-blue-500 text-white",
-                "bg-purple-500 text-white",
-                "bg-green-500 text-white",
-                "bg-orange-500 text-white",
-                "bg-indigo-500 text-white",
-                "bg-teal-500 text-white",
-              ];
-              const colorClass = colors[index % colors.length];
-
-              return (
-                <div
-                  key={index}
-                  className={`group flex items-center px-5 py-3 rounded-full transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer ${colorClass} animate-float-keyword`}
-                  style={{
-                    animationDelay: `${index * 0.3}s`,
-                    animationDuration: `${3 + (index % 3)}s`,
-                  }}
-                >
-                  <span className="font-semibold text-sm tracking-wide mr-3">
-                    {keyword}
-                  </span>
-                  <button
-                    onClick={() => removeKeyword(index)}
-                    className="w-6 h-6 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-all duration-200 hover:scale-110 hover:rotate-90"
-                  >
-                    <X className="w-3 h-3 text-white" />
-                  </button>
+        <div className="w-full bg-muted p-6 rounded-xl">
+          <h3 className="text-xl font-semibold mb-4">Extracted Keywords</h3>
+          <div className="space-y-4">
+            {keywords.map((item, idx) => (
+              <div key={idx} className="border p-4 rounded-lg">
+                <p className="font-medium mb-2">{item.jd}</p>
+                <div className="flex flex-wrap gap-2">
+                  {item.keywords.map((kw, i) => (
+                    <span
+                      key={i}
+                      className="bg-primary/10 text-primary px-3 py-1 rounded-full text-sm"
+                    >
+                      {kw}
+                    </span>
+                  ))}
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       )}
 
       {/* confirmation */}
       {keywords.length > 0 && (
-        <div className="text-center space-y-6 p-8 bg-gray-50 rounded-2xl border-2 border-gray-100">
+        <div className="text-center space-y-6 p-8 bg-gray-50 rounded-2xl border-2 border-gray-100 w-full">
           <div className="space-y-3">
             <div className="flex items-center justify-center gap-2">
               <h3 className="text-2xl font-semibold text-gray-800">

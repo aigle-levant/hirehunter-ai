@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from datetime import datetime
 from typing import Optional, List, Dict
 
 class ResumeUploadResponse(BaseModel):
@@ -10,12 +11,11 @@ class ResumeUploadResponse(BaseModel):
 class JobDesc(BaseModel):
     description: str
 
-class Resume(BaseModel):
-    name: str
-    email: str
-    phone_number: str
-    skills: List[str]
-    experience: float
+class ResumeFile(BaseModel):
+    filename: str
+    file_ext: str
+    content: str
+    uploaded_at: datetime
 
 class ResumeUpdate(BaseModel):
     name: Optional[str] = None

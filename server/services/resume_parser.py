@@ -6,10 +6,10 @@ from typing import List
 # director
 def parse_my_resume(file_bytes: bytes, file_type: str):
     file_type = file_type.lower()
-    if file_type=="pdf":
-        parse_pdf(file_bytes)
-    elif file_type=="docx":
-        parse_word(file_bytes)
+    if file_type == "pdf":
+        return parse_pdf(file_bytes)
+    elif file_type == "docx":
+        return parse_word(file_bytes)
     else:
         raise ValueError("File format is invalid! Only pdf or docx formats are accepted.")
 
@@ -20,7 +20,7 @@ def parse_pdf(file_bytes: bytes):
     for page in doc:
         pages_list.append(page.get_text())
     doc.close()
-    return '/n'.join(pages_list)
+    return "\n".join(pages_list)
 
 # one for word
 def parse_word(file_bytes: bytes):

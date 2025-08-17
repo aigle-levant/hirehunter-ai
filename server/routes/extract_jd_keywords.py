@@ -1,23 +1,19 @@
-# libraries
-from fastapi import APIRouter
-from typing import List
-# modules
+from fastapi import APIRouter, Body
+from typing import List, Union
 from model.base import JobDesc
-from services.jd_parser import extract_keywords_from_jd
+from services.jd_parser import extract_keywords_multi_jds
 
 router = APIRouter(prefix="/jd")
 
-@router.post("/keywords")
-async def extract_keywords(text: JobDesc):
-    if not text.jd.strip():
-        return {"keywords": []}
-    keywords = extract_keywords_from_jd(text.jd)
-    return { "keywords found": keywords }
-
 @router.post("/keywords-multi")
-async def extract_keywords_multi(jds: List[JobDesc]):
-    result = []
-    for jd in jds:
-        kws = extract_keywords_from_jd(jd.jd)
-        result.append({"jd": jd.jd, "keywords": kws})
+async def extract_keywords_multi(
+    jds: Union[List[JobDesc], dict] = Body(...)
+):
+    if isinstance(jds, dict) and "jds" in jds:
+        jds = jds["jds"]
+
+    jd_texts = [jd.jd if isinstance(jd, JobDesc) else jd for jd in jds]
+
+    result = extract_keywords_multi_jds(jd_texts)
+
     return result
