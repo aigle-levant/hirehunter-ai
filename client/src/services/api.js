@@ -7,4 +7,19 @@ const API = axios.create({
     },
 });
 
+export const pingServer = async () => {
+    const res = await API.get("/ping");
+    return res.data;
+};
+
+export const analyzeJD = async (jobDescription) => {
+    const res = await API.post("/analyze", { jd: jobDescription });
+    return res.data;
+};
+
+export const analyzeMultipleJD = async (jobDescriptions) => {
+    const res = await API.post("/analyze-multiple", { jds: jobDescriptions });
+    return res.data;
+};
+
 export default API;
