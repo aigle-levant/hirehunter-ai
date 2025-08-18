@@ -32,7 +32,7 @@ export default function Footer() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
         {/* Branding */}
         <div>
-          <h2 className="text-2xl font-semibold text-white">HireHunter</h2>
+          <h2 className="text-2xl font-semibold text-white">Hirehunter</h2>
           <p className="text-sm text-gray-400 mt-1">
             Made by Team Technoblasters
           </p>
@@ -91,7 +91,7 @@ export default function Footer() {
               About
             </NavLink>
             <p className="text-sm text-gray-400">
-              Take a look at how HireHunter was built
+              Take a look at how Hirehunter was built
             </p>
           </div>
         </div>
@@ -107,6 +107,17 @@ export default function Footer() {
             </NavLink>
             <p className="text-sm text-gray-400">
               Prepare interviews and queries real quick!
+            </p>
+          </div>
+          <div>
+            <NavLink
+              to="/schedule"
+              className="block text-white hover:underline"
+            >
+              Feedback
+            </NavLink>
+            <p className="text-sm text-gray-400">
+              Send and receive feedback and analyse their tone.
             </p>
           </div>
           <div>
