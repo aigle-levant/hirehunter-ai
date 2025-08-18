@@ -53,7 +53,7 @@ export default function ProblemStatement() {
   return (
     <section
       id="problem"
-      className="px-6 py-10 transition-colors duration-300
+      className="px-6 pb-10 transition-colors duration-300
                  bg-white dark:bg-zinc-900 text-zinc-900 dark:text-gray-200"
     >
       <motion.h2

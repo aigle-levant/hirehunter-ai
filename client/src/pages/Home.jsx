@@ -6,21 +6,32 @@ import FinalCTA from "../components/home/FinalCTA.jsx";
 import ProblemStatement from "../components/home/ProblemStatement.jsx";
 import { useEffect, useState } from "react";
 import LoadingScreen from "../components/common/LoadingScreen.jsx";
+import CurtainsOpen from "../components/common/CurtainsOpen.jsx";
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  // "loading" -> show spinner/splash
+  // "transition" -> curtain wipe
+  // "content" -> show page
+  const [phase, setPhase] = useState("loading");
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 3000);
-    return () => clearTimeout(timer);
+    // 1) show your LoadingScreen for ~2.6–3s (tweak to taste)
+    const t1 = setTimeout(() => setPhase("transition"), 2600);
+    return () => clearTimeout(t1);
   }, []);
+
   return (
     <>
-      {loading && <LoadingScreen />}
+      {phase === "loading" && <LoadingScreen />}
+
+      {phase === "transition" && (
+        <CurtainsOpen onComplete={() => setPhase("content")} />
+      )}
+
       <div
-        className={
-          loading ? "opacity-0" : "opacity-100 transition-opacity duration-500"
-        }
+        className={`transition-opacity duration-700 ${
+          phase === "content" ? "opacity-100" : "opacity-0"
+        }`}
       >
         <section id="home">
           <HeroSection />
