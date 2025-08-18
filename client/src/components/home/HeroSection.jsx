@@ -280,7 +280,7 @@ export default function HeroSection() {
           <div className="w-1 h-3 bg-white/60 rounded-full mt-2" />
         </motion.div>
       </motion.div>
-      <div className="absolute bottom-0 left-0 w-full h-40 pointer-events-none bg-gradient-to-t from-white to-transparent z-20" />
+      <div className="absolute bottom-0 left-0 w-full h-40 pointer-events-none bg-gradient-to-t from-white dark:from-black to-transparent z-20" />
     </div>
   );
 }
