@@ -1,3 +1,4 @@
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Resumes from "./pages/Resumes";
 import Leaderboard from "./pages/Leaderboard";
@@ -9,7 +10,7 @@ import Jobs from "./pages/Jobs";
 import Default from "./layout/Default";
 import Auth from "./layout/Auth";
 import DashboardLayout from "./layout/DashboardLayout";
-import { Routes, Route } from "react-router-dom";
+import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
@@ -30,6 +31,8 @@ export default function App() {
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/schedule" element={<Schedule />} />
       </Route>
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
