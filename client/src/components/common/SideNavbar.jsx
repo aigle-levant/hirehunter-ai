@@ -11,25 +11,19 @@ import {
   ShieldHalf,
 } from "lucide-react";
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function SideNavbar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const location = useLocation();
 
   const navLinks = [
-    {
-      name: "Dashboard",
-      icon: LayoutDashboard,
-      href: "/dashboard",
-    },
-    {
-      name: "Jobs",
-      icon: Briefcase,
-      href: "/jobs",
-    },
-    { name: "Parser", icon: FileUser, href: "/candidates" },
-    { name: "Schedule", icon: Calendar, href: "/schedule" },
-    { name: "Leaderboard", icon: ShieldHalf, href: "/analytics" },
-    { name: "Feedback", icon: MessageSquare, href: "/feedback" },
+    { name: "Dashboard", icon: LayoutDashboard, to: "/dashboard" },
+    { name: "Jobs", icon: Briefcase, to: "/jobs" },
+    { name: "Parser", icon: FileUser, to: "/scan" }, // matched your router
+    { name: "Schedule", icon: Calendar, to: "/schedule" },
+    { name: "Leaderboard", icon: ShieldHalf, to: "/leaderboard" },
+    { name: "Feedback", icon: MessageSquare, to: "/feedback" },
   ];
 
   return (
@@ -57,15 +51,17 @@ export default function SideNavbar() {
         </button>
       </div>
 
+      {/* Nav Links */}
       <div className="flex-1 px-3">
         <nav className="space-y-1.5 mt-5">
-          {navLinks.map((link, index) => {
+          {navLinks.map((link) => {
             const IconComponent = link.icon;
-            const isActive = index === 0;
+            const isActive = location.pathname === link.to;
+
             return (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.to}
                 className={`flex items-center ${
                   isCollapsed ? "justify-center px-2" : "space-x-3 px-3"
                 } py-2.5 rounded-lg transition-all duration-300 group relative ${
@@ -86,13 +82,10 @@ export default function SideNavbar() {
                     {link.name}
                   </span>
                 )}
-                {!isCollapsed && link.badge && (
-                  <span className="ml-auto px-1.5 py-0.5 text-xs font-medium "></span>
-                )}
                 {isActive && !isCollapsed && (
                   <div className="absolute -right-1.5 top-1/2 -translate-y-1/2 w-0.5 h-5 bg-purple-400 rounded-full blur-[1px]" />
                 )}
-              </a>
+              </Link>
             );
           })}
         </nav>

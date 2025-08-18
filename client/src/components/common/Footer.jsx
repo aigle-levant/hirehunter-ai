@@ -9,19 +9,28 @@ import {
 export default function Footer() {
   return (
     <footer className="w-full bg-blue-950 text-gray-300 px-8 py-12 border-t border-white/10">
+      {/* Top CTA Row */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-12">
         <p className="text-lg font-light max-w-lg"></p>
         <div className="flex gap-4">
-          <button className="px-5 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white transition-all">
+          <NavLink
+            to="/scan"
+            className="px-5 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white transition-all"
+          >
             Scan resumes
-          </button>
-          <button className="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all">
+          </NavLink>
+          <NavLink
+            to="/schedule"
+            className="px-5 py-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all"
+          >
             Schedule an interview
-          </button>
+          </NavLink>
         </div>
       </div>
 
+      {/* Footer Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        {/* Branding */}
         <div>
           <h2 className="text-2xl font-semibold text-white">HireHunter</h2>
           <p className="text-sm text-gray-400 mt-1">
@@ -31,18 +40,24 @@ export default function Footer() {
           <div className="flex gap-4 mt-4">
             <a
               href="https://github.com/aigle-levant/hirehunter-ai"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-white transition-colors"
             >
               <FontAwesomeIcon icon={faGithub} size="lg" />
             </a>
             <a
               href="https://www.linkedin.com/in/prajanya-subramanian/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-white transition-colors"
             >
               <FontAwesomeIcon icon={faLinkedin} size="lg" />
             </a>
             <a
               href="https://x.com/aiglelevant"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-white transition-colors"
             >
               <FontAwesomeIcon icon={faXTwitter} size="lg" />
@@ -50,6 +65,7 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Column 1 */}
         <div className="space-y-4">
           <div>
             <NavLink to="/scan" className="block text-white hover:underline">
@@ -80,6 +96,7 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* Column 2 */}
         <div className="space-y-4">
           <div>
             <NavLink
