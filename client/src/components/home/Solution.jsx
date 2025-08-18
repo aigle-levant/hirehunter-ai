@@ -9,100 +9,141 @@ import {
 } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sticker, ListOrdered, Calendar } from "lucide-react";
+import { useInView } from "react-intersection-observer";
 
 const features = [
   {
-    icon: <Sticker className="w-8 h-8 text-blue-600 dark:text-blue-400" />,
+    icon: <Sticker className="w-8 h-8 text-blue-500" />,
     title: "A single score. Infinite insights.",
     description:
-      "HireScore distills every resume into a data-backed rating: fair, fast, and bias-free.",
+      "Every resume distilled into one score. No bias. No wasted time. Just clarity that helps you act fast, and act fair.",
     button: "Check out candidates' HireScore",
+    accent: "from-blue-500/20 to-blue-600/10 shadow-blue-400/30",
   },
   {
-    icon: (
-      <ListOrdered className="w-8 h-8 text-green-600 dark:text-green-400" />
-    ),
+    icon: <ListOrdered className="w-8 h-8 text-green-500" />,
     title: "See the best, instantly.",
     description:
-      "The Leaderboard ranks top candidates in real-time, so you focus on who matters — not just who applied first.",
+      "The dynamic Leaderboard shifts as new talent comes in, spotlighting the strongest candidates in real time.",
     button: "View the leaderboard rankings",
+    accent: "from-green-500/20 to-green-600/10 shadow-green-400/30",
   },
   {
-    icon: <Calendar className="w-8 h-8 text-purple-600 dark:text-purple-400" />,
+    icon: <Calendar className="w-8 h-8 text-purple-500" />,
     title: "One click to connect.",
     description:
-      "Hirehunter auto-schedules interviews with top picks, syncing with your calendar to save hours, and sanity.",
+      "With calendar sync, Hirehunter books meetings automatically — so you never lose momentum with top talent.",
     button: "Schedule an interview",
+    accent: "from-purple-500/20 to-purple-600/10 shadow-purple-400/30",
   },
 ];
 
 export default function Solution() {
   const [index, setIndex] = useState(0);
 
-  // Auto-slide every 4 seconds
+  // reveal on scroll
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.15,
+  });
+
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % features.length);
-    }, 4000);
+    }, 5000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <section
       id="solution"
-      className="relative font-sans flex flex-col md:flex-row items-center justify-center gap-10 p-8
-                 bg-white dark:bg-zinc-900 text-zinc-900 dark:text-gray-200 transition-colors duration-300"
+      ref={ref}
+      className="relative overflow-hidden py-24 px-6 md:px-16 
+                 bg-gradient-to-b from-white to-gray-50 
+                 dark:from-zinc-950 dark:to-zinc-900 
+                 text-gray-900 dark:text-gray-200"
     >
-      {/* Left side - Intro */}
-      <div className="flex flex-col max-w-md">
-        <h2 className="text-3xl font-bold leading-snug">
-          Meet{" "}
-          <span className="text-blue-900 dark:text-blue-400">Hirehunter</span>
-        </h2>
-        <p className="mt-4 text-gray-600 dark:text-gray-400">
-          Your AI hiring buddy that replaces bias with data and guesswork with
-          clarity. Because hiring should be about potential, not privilege.
-        </p>
+      {/* ✨ fadey background overlay */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b dark:from-black/10 from-white/10 to-transparent "></div>
+        <div className="absolute -top-20 -right-32 w-96 h-96 rounded-full  blur-3xl"></div>
+        <div className="absolute bottom-0 -left-32 w-96 h-96 rounded-full  blur-3xl"></div>
+      </div>
 
-        {/* Sticker Icon Buddy */}
-        <div className="mt-6 flex items-center gap-3">
-          <div className="w-16 h-16 rounded-full bg-white/30 dark:bg-zinc-700/40 backdrop-blur-lg shadow-lg flex items-center justify-center transition-colors duration-300">
-            <Sticker className="w-10 h-10 text-blue-600 dark:text-blue-400" />
+      <motion.div
+        initial={{ opacity: 0, y: 80, scale: 0.95 }}
+        animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+        className="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center"
+      >
+        {/* LEFT: Intro */}
+        <div className="relative space-y-6">
+          <h2 className="text-4xl md:text-5xl font-helv-bold font-extrabold leading-tight">
+            Meet{" "}
+            <span className="bg-gradient-to-r from-blue-700 dark:from-blue-500 via-blue-950 dark:via-gray-200 to-blue-800 bg-clip-text text-transparent">
+              Hirehunter
+            </span>
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-lg">
+            Your AI hiring buddy that replaces bias with data and guesswork with
+            clarity. Because hiring should be about potential, not privilege.
+          </p>
+
+          {/* Mini buddy */}
+          <div className="flex items-center gap-3 mt-8">
+            <div
+              className="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/30 
+                          shadow-lg shadow-blue-500/20 flex items-center justify-center"
+            >
+              <Sticker className="w-9 h-9 text-blue-500" />
+            </div>
+            <span className="text-xl font-semibold text-blue-600 dark:text-blue-400">
+              Say hi to Hunter!
+            </span>
           </div>
-          <span className="text-lg font-semibold text-blue-700 dark:text-blue-400">
-            Hello!
-          </span>
         </div>
-      </div>
 
-      <div className="relative w-full max-w-sm">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
-          >
-            <Card className="bg-white/20 dark:bg-zinc-800/70 backdrop-blur-lg border border-white/40 dark:border-zinc-600 shadow-xl rounded-2xl p-4 transition-colors duration-300">
-              <CardHeader>
-                <div className="flex items-center gap-3 mb-2">
-                  {features[index].icon}
-                  <CardTitle className="text-xl text-blue-900 dark:text-blue-400">
-                    {features[index].title}
-                  </CardTitle>
-                </div>
-                <CardDescription className="text-gray-700 dark:text-gray-300">
-                  {features[index].description}
-                </CardDescription>
-              </CardHeader>
-              <CardFooter>
-                <Button className="w-full">{features[index].button}</Button>
-              </CardFooter>
-            </Card>
-          </motion.div>
-        </AnimatePresence>
-      </div>
+        {/* RIGHT: Animated Cards */}
+        <div className="relative w-full max-w-md mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -50, scale: 0.95 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+            >
+              <Card
+                className={`relative bg-gradient-to-b ${features[index].accent} 
+                             dark:bg-zinc-800/80 
+                             border border-gray-200/40 dark:border-zinc-700/40 
+                             rounded-2xl shadow-xl p-6 backdrop-blur-md 
+                             hover:shadow-2xl transition-all duration-300`}
+              >
+                <CardHeader>
+                  <div className="flex items-center gap-4 mb-3">
+                    {features[index].icon}
+                    <CardTitle className="text-xl font-bold">
+                      {features[index].title}
+                    </CardTitle>
+                  </div>
+                  <CardDescription className="text-gray-700 dark:text-gray-300">
+                    {features[index].description}
+                  </CardDescription>
+                </CardHeader>
+                <CardFooter>
+                  <Button
+                    size="lg"
+                    className="w-full font-semibold rounded-xl shadow-md"
+                  >
+                    {features[index].button}
+                  </Button>
+                </CardFooter>
+              </Card>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </motion.div>
     </section>
   );
 }

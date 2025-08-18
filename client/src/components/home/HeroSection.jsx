@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Sticker } from "lucide-react";
 
-// Mock NavLink since we don't have React Router
 const NavLink = ({ to, className, children, ...props }) => (
   <a href="#" className={className} {...props}>
     {children}
