@@ -4,22 +4,22 @@ import { UploadCloud, Cpu, Users, Mail } from "lucide-react";
 const steps = [
   {
     icon: UploadCloud,
-    color: "text-blue-600 dark:text-blue-400",
+    accent: "border-indigo-500 text-indigo-600 dark:text-indigo-400",
     text: "Recruiter uploads the resumes.",
   },
   {
     icon: Cpu,
-    color: "text-green-600 dark:text-green-400",
+    accent: "border-teal-500 text-teal-600 dark:text-teal-400",
     text: "AI swiftly prepares candidate profiles and assigns rankings on the leaderboard.",
   },
   {
     icon: Users,
-    color: "text-purple-600 dark:text-purple-400",
+    accent: "border-amber-500 text-amber-600 dark:text-amber-400",
     text: "Recruiter can review the top candidates and schedule interview with them.",
   },
   {
     icon: Mail,
-    color: "text-pink-600 dark:text-pink-400",
+    accent: "border-rose-500 text-rose-600 dark:text-rose-400",
     text: "Rejected candidates get a personalised mail sent by our specialised AI buddy.",
   },
 ];
@@ -28,89 +28,83 @@ export default function HowItWorks() {
   return (
     <section
       id="howworks"
-      className="px-6 my-16 py-16
-        bg-gradient-to-b from-blue-50 to-blue-100
-        dark:from-zinc-900 dark:to-zinc-800
-        transition-colors duration-500"
+      className="relative py-24 px-6 md:px-16 
+                 bg-white dark:bg-zinc-950 
+                 overflow-hidden"
     >
-      <div className="max-w-4xl mx-auto font-sans text-black dark:text-gray-300 transition-colors duration-500">
-        <h2 className="text-4xl font-extrabold mb-12 text-center">
+      <div className="relative max-w-5xl mx-auto font-sans text-gray-900 dark:text-gray-200">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="text-4xl md:text-5xl font-bold text-center mb-20"
+        >
           How it works
-        </h2>
+        </motion.h2>
 
         <div className="relative">
-          <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-blue-300 dark:bg-blue-700 -translate-x-1/2 rounded-full transition-colors duration-500"></div>
+          {/* Minimal vertical line */}
+          <div
+            className="absolute left-1/2 top-0 bottom-0 w-px 
+                        bg-gray-300 dark:bg-zinc-700 
+                        -translate-x-1/2"
+          />
 
-          <div className="flex flex-col space-y-16">
-            {steps.map(({ icon: Icon, color, text }, i) => {
+          <div className="flex flex-col gap-20">
+            {steps.map(({ icon: Icon, accent, text }, i) => {
               const isLeft = i % 2 === 0;
               return (
                 <motion.div
                   key={i}
-                  initial={{ opacity: 0, x: isLeft ? -100 : 100 }}
+                  initial={{ opacity: 0, x: isLeft ? -120 : 120 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, amount: 0.3 }}
                   transition={{
                     type: "spring",
-                    stiffness: 100,
-                    damping: 15,
-                    delay: i * 0.3,
+                    stiffness: 80,
+                    damping: 20,
+                    delay: i * 0.15,
                   }}
-                  className={`flex items-center max-w-3xl mx-auto ${
+                  className={`relative flex items-center ${
                     isLeft ? "justify-start" : "justify-end"
                   }`}
                 >
-                  <div className="relative flex items-center gap-6">
+                  <div
+                    className={`flex items-center gap-6 max-w-md ${
+                      isLeft ? "text-left" : "text-right"
+                    }`}
+                  >
+                    {/* Number bubble */}
                     <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
+                      whileInView={{ scale: [0.6, 1] }}
                       transition={{
-                        delay: i * 0.3 + 0.1,
                         type: "spring",
-                        stiffness: 150,
+                        stiffness: 120,
+                        delay: i * 0.15 + 0.1,
                       }}
-                      className="z-10 flex items-center justify-center w-12 h-12 rounded-full
-                        bg-white/90 dark:bg-zinc-800/90
-                        backdrop-blur-lg border border-blue-300 dark:border-blue-700
-                        shadow-lg text-xl font-bold text-blue-700 dark:text-blue-400
-                        transition-colors duration-500"
+                      className={`z-10 flex items-center justify-center w-10 h-10 
+                                 rounded-full bg-white dark:bg-zinc-900 
+                                 border-2 ${accent} font-bold shadow-sm`}
                     >
                       {i + 1}
                     </motion.div>
 
-                    <div
-                      className={`absolute top-6 left-12 h-1 w-6 bg-blue-300 dark:bg-blue-700 ${
-                        isLeft ? "rounded-l-full" : "rounded-r-full"
-                      } transition-colors duration-500`}
-                    ></div>
-
+                    {/* Step Card */}
                     <motion.div
-                      whileHover={{
-                        scale: 1.03,
-                        boxShadow: "0 8px 20px rgba(0,0,0,0.12)",
-                      }}
-                      className="bg-white/30 dark:bg-zinc-800/70
-                        backdrop-blur-lg border border-white/40 dark:border-zinc-600
-                        rounded-2xl p-6 shadow-md max-w-[320px] flex flex-col gap-4
-                        transition-colors duration-500"
+                      whileHover={{ y: -3 }}
+                      className="relative bg-white dark:bg-zinc-900 
+                                 border border-gray-200 dark:border-zinc-700 
+                                 rounded-xl p-6 shadow-sm flex flex-col gap-4"
                     >
-                      <motion.div
-                        animate={{
-                          y: [0, -8, 0],
-                        }}
-                        transition={{
-                          repeat: Infinity,
-                          repeatType: "loop",
-                          duration: 2,
-                          ease: "easeInOut",
-                        }}
-                        className={`${color} bg-white/50 dark:bg-zinc-700/50
-                          p-2 rounded-full flex items-center justify-center w-12 h-12 shadow-md
-                          transition-colors duration-500`}
+                      {/* Icon in ring */}
+                      <div
+                        className={`p-2 w-10 h-10 rounded-full flex items-center justify-center border-2 ${accent}`}
                       >
-                        <Icon className="w-6 h-6" />
-                      </motion.div>
-                      <p className="font-semibold text-gray-800 dark:text-gray-300">
+                        <Icon className="w-5 h-5" />
+                      </div>
+
+                      <p className="font-medium text-base leading-snug">
                         {text}
                       </p>
                     </motion.div>
