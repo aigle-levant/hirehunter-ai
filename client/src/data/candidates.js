@@ -88,25 +88,25 @@ export const candidates = [
         skills: "Next.js, Typescript, Tailwind, Prisma, Sanity",
     },
     {
-        "name": "Aryan Chatterjee",
-        "email": "aryan.c@rocketmail.com",
-        "phone": "+91-9812345678",
-        "location": "Kolkata, India",
-        "lastwork": "Game Developer Intern",
-        "company": "PixelForge Studios",
-        "degree": "BCA, St. Xavier's College",
-        "yoe": "1",
-        "skills": "Unity, C#, Blender, Game Physics, Git"
+        name: "Aryan Chatterjee",
+        email: "aryan.c@rocketmail.com",
+        phone: "+91-9812345678",
+        location: "Kolkata, India",
+        lastwork: "Game Developer Intern",
+        company: "PixelForge Studios",
+        degree: "BCA, St. Xavier's College",
+        yoe: "1",
+        skills: "Unity, C#, Blender, Game Physics, Git"
     },
     {
-        "name": "Zainab Noor",
-        "email": "zainab.noor@techmail.com",
-        "phone": "+91-8884447722",
-        "location": "Delhi, India",
-        "lastwork": "Data Analyst",
-        "company": "UrbanEdge Analytics",
-        "degree": "B.Sc Statistics, DU",
-        "yoe": "3",
-        "skills": "SQL, Power BI, Excel, Python, Pandas"
+        name: "Zainab Noor",
+        email: "zainab.noor@techmail.com",
+        phone: "+91-8884447722",
+        location: "Delhi, India",
+        lastwork: "Data Analyst",
+        company: "UrbanEdge Analytics",
+        degree: "B.Sc Statistics, DU",
+        yoe: "3",
+        skills: "SQL, Power BI, Excel, Python, Pandas"
     }
 ];

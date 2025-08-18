@@ -1,6 +1,6 @@
 export const mockJDs = [
     {
-        jd: ```
+        jd: `
         Position: Software Development Engineer II
 
         Location: Bangalore, India  
@@ -20,7 +20,7 @@ export const mockJDs = [
         - Excellent problem-solving skills and attention to detail.  
 
         Benefits: Competitive salary, health insurance, flexible work hours, and professional development opportunities.
-        ```,
+        `,
         keywords: [
             "Software Development Engineer",
             "Bangalore",
@@ -35,7 +35,7 @@ export const mockJDs = [
         ],
     },
     {
-        jd: ```
+        jd: `
         Position: Web Developer
 
 Location: Pune, India
@@ -55,7 +55,7 @@ Requirements:
 - Basic understanding of server-side languages (e.g., Node.js, PHP).
 
 Benefits: Health insurance, remote work options, and annual performance bonuses.
-        ```,
+        `,
         keywords: [
             "Web Developer",
             "Pune",
@@ -73,7 +73,7 @@ Benefits: Health insurance, remote work options, and annual performance bonuses.
         ],
     },
     {
-        jd: ```
+        jd: `
         Position: Senior Human Resources Manager
 
 Location: Hyderabad, India
@@ -93,7 +93,7 @@ Requirements:
 - Excellent communication and leadership skills.
 
 Benefits: Competitive salary, stock options, and a comprehensive health plan.
-        ```,
+        `,
         keywords: [
             "Senior Human Resources Manager",
             "Hyderabad",
@@ -111,7 +111,7 @@ Benefits: Competitive salary, stock options, and a comprehensive health plan.
         ],
     },
     {
-        jd: ```
+        jd: `
         Position: Network Administrator
 
 Location: Chennai, India
@@ -131,7 +131,7 @@ Requirements:
 - Certification in CCNA or equivalent is a plus.
 
 Benefits: Health insurance, performance bonuses, and paid certifications.
-        ```,
+        `,
         keywords: [
             "Network Administrator",
             "Chennai",
@@ -150,7 +150,7 @@ Benefits: Health insurance, performance bonuses, and paid certifications.
         ],
     },
     {
-        jd: ```
+        jd: `
         Position: Sales Intern
 
 Location: Mumbai, India
@@ -170,7 +170,7 @@ Requirements:
 - Enthusiasm to learn and adapt in a fast-paced environment.
 
 Benefits: Stipend, flexible hours, and a chance to convert to full-time role.
-        ```,
+        `,
         keywords: [
             "Sales Intern",
             "Mumbai",
