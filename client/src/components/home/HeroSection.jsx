@@ -226,7 +226,7 @@ export default function HeroSection() {
                 <div className="grid grid-cols-2 gap-3 pt-4">
                   {[
                     { icon: "📊", label: "Leaderboard", to: "/leaderboard" },
-                    { icon: "🔍", label: "Scan resumes", to: "/scan" },
+                    { icon: "🔍", label: "Scan resumes", to: "/jd" },
                     { icon: "📅", label: "Schedule", to: "/schedule" },
                     { icon: "⚡", label: "Quick feedback", to: "/feedback" },
                   ].map((item, i) => (

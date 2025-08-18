@@ -9,6 +9,7 @@ import {
   ChevronLeft,
   FileUser,
   ShieldHalf,
+  FileJson,
 } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -20,7 +21,8 @@ export default function SideNavbar() {
   const navLinks = [
     { name: "Dashboard", icon: LayoutDashboard, to: "/dashboard" },
     { name: "Jobs", icon: Briefcase, to: "/jobs" },
-    { name: "Parser", icon: FileUser, to: "/scan" }, // matched your router
+    { name: "Parse JD", icon: FileJson, to: "/jd" },
+    { name: "Match Resumes", icon: FileUser, to: "/scan" },
     { name: "Schedule", icon: Calendar, to: "/schedule" },
     { name: "Leaderboard", icon: ShieldHalf, to: "/leaderboard" },
     { name: "Feedback", icon: MessageSquare, to: "/feedback" },

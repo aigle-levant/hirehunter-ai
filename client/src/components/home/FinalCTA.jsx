@@ -70,7 +70,7 @@ export default function FinalCTA() {
         onHoverEnd={() => setIsHovered(false)}
         className="relative"
       >
-        <NavLink to="/scan">
+        <NavLink to="/jd">
           <motion.button
             whileHover={{
               scale: 1.05,

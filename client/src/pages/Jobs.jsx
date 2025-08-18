@@ -17,13 +17,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-export default function Jobs() {
-  const [openJob, setOpenJob] = useState(null);
-
-  const jobs = [
-    {
-      title: "SDE-2",
-      description: `
+export const jobs = [
+  {
+    title: "SDE-2",
+    description: `
         Position: Software Development Engineer II
 
         Location: Bangalore, India  
@@ -44,10 +41,10 @@ export default function Jobs() {
 
         Benefits: Competitive salary, health insurance, flexible work hours, and professional development opportunities.
       `,
-    },
-    {
-      title: "Web Developer",
-      description: `
+  },
+  {
+    title: "Web Developer",
+    description: `
         Position: Web Developer
 
         Location: Pune, India  
@@ -68,10 +65,10 @@ export default function Jobs() {
 
         Benefits: Health insurance, remote work options, and annual performance bonuses.
       `,
-    },
-    {
-      title: "Senior HR",
-      description: `
+  },
+  {
+    title: "Senior HR",
+    description: `
         Position: Senior Human Resources Manager
 
         Location: Hyderabad, India  
@@ -92,10 +89,10 @@ export default function Jobs() {
 
         Benefits: Competitive salary, stock options, and a comprehensive health plan.
       `,
-    },
-    {
-      title: "Netadmin",
-      description: `
+  },
+  {
+    title: "Netadmin",
+    description: `
         Position: Network Administrator
 
         Location: Chennai, India  
@@ -116,10 +113,10 @@ export default function Jobs() {
 
         Benefits: Health insurance, performance bonuses, and paid certifications.
       `,
-    },
-    {
-      title: "Sales Intern",
-      description: `
+  },
+  {
+    title: "Sales Intern",
+    description: `
         Position: Sales Intern
 
         Location: Mumbai, India  
@@ -140,9 +137,11 @@ export default function Jobs() {
 
         Benefits: Stipend, flexible hours, and a chance to convert to full-time role.
       `,
-    },
-  ];
+  },
+];
 
+export default function Jobs() {
+  const [openJob, setOpenJob] = useState(null);
   return (
     <div className="container mx-auto p-6 space-y-6">
       <h1 className="text-3xl font-bold text-[#1C398E]">Job Openings</h1>
@@ -169,16 +168,16 @@ export default function Jobs() {
                 </CardContent>
               </Card>
             </DialogTrigger>
-            <DialogContent className="max-w-2xl">
+            <DialogContent className="w-[90vw] max-w-4xl md:max-w-3xl lg:max-w-4xl">
               <DialogHeader>
                 <DialogTitle className="text-2xl text-[#1C398E]">
                   {job.title}
                 </DialogTitle>
               </DialogHeader>
-              <DialogDescription className="text-[#71717B] whitespace-pre-line">
+              <DialogDescription className="text-[#71717B] whitespace-pre-line max-h-[70vh] overflow-y-auto">
                 {job.description}
               </DialogDescription>
-              <div className="mt-4">
+              <div className="mt-4 flex justify-end">
                 <Button
                   variant="outline"
                   className="bg-[#F15946] text-white hover:bg-[#F15946]/90"

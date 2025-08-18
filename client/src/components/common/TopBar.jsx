@@ -18,7 +18,7 @@ export default function TopBar() {
   return (
     <div className="h-30 rounded-bl-2xl pb-7 bg-white/90 backdrop-blur-md border-b border-slate-200 flex items-center justify-between px-10 top-0 z-40 dark:bg-slate-900/90 dark:border-slate-700">
       <div
-        className={`mt-10 flex flex-col space-y-1 transition-opacity duration-1000 ${
+        className={`mt-10 mb-6 flex flex-col space-y-1 transition-opacity duration-1000 ${
           fadeIn ? "opacity-100" : "opacity-0"
         }`}
       >

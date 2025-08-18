@@ -14,7 +14,7 @@ export default function Footer() {
         <p className="text-lg font-light max-w-lg"></p>
         <div className="flex gap-4">
           <NavLink
-            to="/scan"
+            to="/jd"
             className="px-5 py-2 rounded-full bg-blue-600 hover:bg-blue-500 text-white transition-all"
           >
             Scan resumes
@@ -68,7 +68,7 @@ export default function Footer() {
         {/* Column 1 */}
         <div className="space-y-4">
           <div>
-            <NavLink to="/scan" className="block text-white hover:underline">
+            <NavLink to="/jd" className="block text-white hover:underline">
               Scan resumes
             </NavLink>
             <p className="text-sm text-gray-400">
