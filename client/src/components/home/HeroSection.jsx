@@ -30,8 +30,13 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <div className="min-h-screen w-full px-10 pb-30 mb-20 bg-white overflow-hidden relative">
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:50px_50px] animate-pulse" />
+    <div className="min-h-screen w-full px-10 pb-30 mb-20 bg-white dark:bg-gray-950 overflow-hidden relative">
+      <div
+        className="absolute inset-0 
+    bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] 
+    dark:bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] 
+    bg-[size:50px_50px] animate-pulse"
+      />
 
       {/* Floating Orbs */}
       <motion.div
@@ -41,7 +46,7 @@ export default function HeroSection() {
           scale: [1, 1.2, 1],
         }}
         transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-blue-800/10 rounded-full blur-3xl"
+        className="absolute top-20 left-20 w-96 h-96 bg-gradient-to-r from-blue-400/20 to-blue-800/10 dark:from-blue-600/20 dark:to-blue-900/20 rounded-full blur-3xl"
       />
 
       <motion.div
@@ -51,7 +56,7 @@ export default function HeroSection() {
           scale: [1, 0.8, 1],
         }}
         transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-blue-300/20 to-gray-400/20 rounded-full blur-3xl"
+        className="absolute bottom-20 right-20 w-80 h-80 bg-gradient-to-r from-blue-300/20 to-gray-400/20 dark:from-blue-500/20 dark:to-gray-600/20 rounded-full blur-3xl"
       />
 
       <motion.section
@@ -70,7 +75,10 @@ export default function HeroSection() {
             {/* Badge */}
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-black/10 hover:bg-black/50 hover:text-white/80 backdrop-blur-lg border border-white/20 rounded-full text-black/90 text-sm font-medium"
+              className="inline-flex items-center gap-2 px-4 py-2 
+          bg-black/10 text-black/90 hover:bg-black/50 hover:text-white/80 
+          dark:bg-white/10 dark:text-white/80 dark:hover:bg-white/20 
+          backdrop-blur-lg border border-white/20 rounded-full text-sm font-medium"
             >
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
               Your AI Wingman for Hiring
@@ -84,11 +92,11 @@ export default function HeroSection() {
                   isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
                 }
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-6xl lg:text-8xl font-helv-bold leading-[0.9] text-black/90"
+                className="text-6xl lg:text-8xl font-helv-bold leading-[0.9] text-black/90 dark:text-white"
               >
                 Hire
                 <br />
-                <span className="bg-gradient-to-r from-blue-700 via-blue-950 to-blue-800 bg-clip-text text-transparent animate-pulse">
+                <span className="bg-gradient-to-r from-blue-700 dark:from-blue-500 via-blue-950 dark:via-gray-200 to-blue-800 bg-clip-text text-transparent animate-pulse">
                   smarter
                 </span>
               </motion.h1>
@@ -99,7 +107,7 @@ export default function HeroSection() {
                   isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }
                 }
                 transition={{ duration: 0.8, delay: 0.4 }}
-                className="text-xl lg:text-2xl text-black/80 font-body max-w-lg leading-relaxed"
+                className="text-xl lg:text-2xl text-black/80 dark:text-gray-300 font-body max-w-lg leading-relaxed"
               >
                 Stop drowning in resumes. Let AI find your perfect candidates in{" "}
                 <span className="text-blue-400 font-bold">seconds</span>, not
@@ -120,7 +128,7 @@ export default function HeroSection() {
                   boxShadow: "0 20px 40px rgba(59, 130, 246, 0.4)",
                 }}
                 whileTap={{ scale: 0.95 }}
-                className="group relative px-8 py-4 bg-black rounded-2xl text-white font-bold text-lg overflow-hidden"
+                className="group relative px-8 py-4 bg-black dark:bg-blue-600 rounded-2xl text-white font-bold text-lg overflow-hidden"
               >
                 <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
                 <span className="relative">Start Hunting →</span>
@@ -129,7 +137,7 @@ export default function HeroSection() {
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-8 py-4 border border-white/30 backdrop-blur-lg rounded-2xl text-grey-200 font-semibold text-lg hover:bg-white/10 transition-all duration-300"
+                className="px-8 py-4 border border-black/20 dark:border-white/30 backdrop-blur-lg rounded-2xl text-black dark:text-white font-semibold text-lg hover:bg-black/5 dark:hover:bg-white/10 transition-all duration-300"
               >
                 Learn more
               </motion.button>
@@ -150,7 +158,7 @@ export default function HeroSection() {
               whileHover={{ scale: 1.02 }}
               onHoverStart={() => setIsHovered(true)}
               onHoverEnd={() => setIsHovered(false)}
-              className="relative p-8 bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl overflow-hidden"
+              className="relative p-8 bg-gradient-to-br from-white/10 to-white/5 dark:from-gray-800/20 dark:to-gray-900/10 backdrop-blur-2xl border border-white/20 dark:border-white/10 rounded-3xl shadow-2xl overflow-hidden"
             >
               {/* Glowing Edge Effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-gray-500/20 via-blue-500/20 to-white/20 rounded-3xl blur-xl" />
@@ -164,12 +172,19 @@ export default function HeroSection() {
                     transition={{ duration: 0.6 }}
                     className="w-16 h-16 rounded-2xl flex items-center justify-center"
                   >
-                    <Sticker color="#193cb8" size={120} />
+                    <Sticker
+                      className="text-blue-700 dark:text-blue-300"
+                      size={120}
+                    />
                   </motion.div>
 
                   <div>
-                    <h3 className="text-2xl font-bold text-black">Hunter</h3>
-                    <p className="text-black/60">A cute assistant for hiring</p>
+                    <h3 className="text-2xl font-bold font-helv-black text-black dark:text-white">
+                      Hunter
+                    </h3>
+                    <p className="text-black/60 dark:text-gray-400">
+                      A cute assistant for hiring
+                    </p>
                   </div>
                 </div>
 
@@ -181,11 +196,11 @@ export default function HeroSection() {
                     transition={{ delay: 1 }}
                     className="flex items-start gap-3"
                   >
-                    <div className="w-8 h-8 bg-black rounded-full flex items-center justify-center">
-                      <Sticker color="#fff" />
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center">
+                      <Sticker className="text-black dark:text-white" />
                     </div>
-                    <div className="bg-white/10 backdrop-blur-lg rounded-2xl rounded-tl-none px-4 py-3 max-w-xs">
-                      <p className="text-gray-900/90 text-sm">
+                    <div className="bg-white/10 dark:bg-gray-700/30 backdrop-blur-lg rounded-2xl rounded-tl-none px-4 py-3 max-w-xs">
+                      <p className="text-gray-900/90 font-body dark:text-gray-100 text-sm">
                         Hey champ! How can I save your day?
                       </p>
                     </div>
@@ -197,11 +212,13 @@ export default function HeroSection() {
                     transition={{ delay: 1.5 }}
                     className="flex items-start gap-3 justify-end"
                   >
-                    <div className="bg-gray-50 rounded-2xl rounded-tr-none px-4 py-3 max-w-xs">
-                      <p className="text-black text-sm">...</p>
+                    <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl rounded-tr-none px-4 py-3 max-w-xs">
+                      <p className="text-black dark:text-white text-sm">...</p>
                     </div>
                     <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                      <span className="text-white text-sm">👤</span>
+                      <span className="w-8 h-8 bg-white/20 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                        👤
+                      </span>
                     </div>
                   </motion.div>
                 </div>
