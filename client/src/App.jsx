@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { ResumesProvider } from "./components/resumes/Context";
+
 import Home from "./pages/Home";
 import JD from "./pages/JD";
 import Leaderboard from "./pages/Leaderboard";
@@ -16,28 +16,26 @@ import NotFound from "./pages/NotFound";
 
 export default function App() {
   return (
-    <ResumesProvider>
-      <Routes>
-        <Route element={<Default />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-        </Route>
+    <Routes>
+      <Route element={<Default />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Route>
 
-        <Route element={<Auth />}>
-          <Route path="/login" element={<Login />} />
-        </Route>
+      <Route element={<Auth />}>
+        <Route path="/login" element={<Login />} />
+      </Route>
 
-        <Route element={<DashboardLayout />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/jobs" element={<Jobs />} />
-          <Route path="/jd" element={<JD />} />
-          <Route path="/scan" element={<Resumes />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/schedule" element={<Schedule />} />
-        </Route>
+      <Route element={<DashboardLayout />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/jobs" element={<Jobs />} />
+        <Route path="/jd" element={<JD />} />
+        <Route path="/scan" element={<Resumes />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="/schedule" element={<Schedule />} />
+      </Route>
 
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </ResumesProvider>
+      <Route path="*" element={<NotFound />} />
+    </Routes>
   );
 }

@@ -1,4 +1,4 @@
-import { useResumes } from "../components/resumes/Context";
+import { useResumes } from "@/store/Context";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 

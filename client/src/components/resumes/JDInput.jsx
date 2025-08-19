@@ -3,6 +3,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useState } from "react";
 import { X, Plus, AlertTriangle, ArrowRight } from "lucide-react";
 import { jobs } from "../../pages/Jobs";
+import { useResumes } from "@/store/Context";
+import { Link } from "react-router-dom";
 
 const jobKeywords = [
   {
@@ -83,8 +85,9 @@ const jobKeywords = [
 
 export default function JDInput() {
   const [jobDescriptions, setJobDescriptions] = useState([""]);
-  const [keywords, setKeywords] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const { keywords, setKeywords } = useResumes(); // ✅ from store
 
   const handleChange = (index, value) => {
     const updated = [...jobDescriptions];
@@ -101,13 +104,12 @@ export default function JDInput() {
     updated.splice(index, 1);
     setJobDescriptions(updated);
 
-    // remove corresponding keywords
+    // also update keywords
     const updatedKeywords = [...keywords];
     updatedKeywords.splice(index, 1);
     setKeywords(updatedKeywords);
   };
 
-  // populate a new textarea with selected job description
   const handleSelectJob = (title) => {
     const job = jobs.find((j) => j.title === title);
     const jobKey = jobKeywords.find((j) => j.title === title);
@@ -125,7 +127,7 @@ export default function JDInput() {
       return found || { jd, keywords: ["sample", "keywords"] };
     });
 
-    setKeywords(res);
+    setKeywords(res); // ✅ store globally
     setLoading(false);
   };
 
@@ -140,7 +142,6 @@ export default function JDInput() {
           Select jobs or paste custom JDs to extract key requirements.
         </p>
 
-        {/* quick select buttons */}
         <div className="flex flex-wrap gap-3">
           {jobs.map((job) => (
             <Button
@@ -209,6 +210,13 @@ export default function JDInput() {
                 </div>
               </div>
             ))}
+          </div>
+
+          {/* ✅ new button */}
+          <div className="mt-6 flex justify-center">
+            <Link to="/scan">
+              <Button>Go to Resumes</Button>
+            </Link>
           </div>
         </div>
       )}
