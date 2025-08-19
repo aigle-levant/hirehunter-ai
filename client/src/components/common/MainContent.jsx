@@ -14,13 +14,13 @@ import { motion } from "framer-motion";
 
 export default function MainContent() {
   const jobs = [
-    { title: "Senior Frontend Developer", candidates: 12 },
-    { title: "Product Manager", candidates: 8 },
-    { title: "UX Designer", candidates: 15 },
+    { title: "SDE-2", candidates: 4 },
+    { title: "Senior HR", candidates: 2 },
+    { title: "Netadmin", candidates: 4 },
   ];
 
   const stats = [
-    { icon: Users, value: "100", label: "Applications", change: "+12%" },
+    { icon: Users, value: "12", label: "Applications", change: "+8%" },
     { icon: Briefcase, value: "5", label: "Active Jobs", change: "+2" },
     { icon: Calendar, value: "2", label: "Interviews Today", change: "Today" },
     { icon: Star, value: "87%", label: "Match Rate", change: "+5%" },
@@ -28,40 +28,40 @@ export default function MainContent() {
 
   const candidates = [
     {
-      name: "Sarah Chen",
+      name: "Jnaneshwar S",
       score: 95,
-      location: "San Francisco",
-      avatar: "SC",
+      location: "Noida",
+      avatar: "JS",
       trend: "+12%",
       status: "Interview Scheduled",
     },
     {
-      name: "Michael Rodriguez",
-      score: 92,
-      location: "New York",
-      avatar: "MR",
+      name: "Michael Kamaraj",
+      score: 87,
+      location: "Coimbatore",
+      avatar: "MK",
       trend: "+8%",
       status: "Technical Review",
     },
     {
-      name: "Emma Thompson",
-      score: 89,
-      location: "London",
-      avatar: "ET",
+      name: "Joshua Fernandez",
+      score: 98,
+      location: "Mumbai",
+      avatar: "JF",
       trend: "+15%",
-      status: "Portfolio Review",
+      status: "Document Submission",
     },
   ];
 
   const feedback = [
     {
-      name: "John Doe",
+      name: "Jelisha Muruganathan",
       role: "HR Manager",
       comment:
         "The platform makes screening candidates incredibly fast and intuitive.",
     },
     {
-      name: "Jane Smith",
+      name: "Samarth Pandey",
       role: "Team Lead",
       comment:
         "I love the candidate insights and how quickly I can track interviews.",
@@ -174,9 +174,7 @@ export default function MainContent() {
             <div className="flex flex-col gap-3">
               <div className="flex justify-between p-3 bg-blue-50 rounded-lg">
                 <Clock className="w-4 h-4 text-blue-600" />
-                <span className="font-medium text-gray-900">
-                  Interview - Sarah
-                </span>
+                <span className="font-medium text-gray-900">Interview</span>
                 <span className="text-gray-500">10:00 AM</span>
               </div>
               <div className="flex justify-between p-3 bg-orange-50 rounded-lg">
