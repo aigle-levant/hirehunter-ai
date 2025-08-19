@@ -11,12 +11,24 @@ import {
   ShieldHalf,
   FileJson,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function SideNavbar() {
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [darkMode, setDarkMode] = useState(
+    document.documentElement.classList.contains("dark")
+  );
   const location = useLocation();
+
+  // Sync dark mode with document.documentElement
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
 
   const navLinks = [
     { name: "Dashboard", icon: LayoutDashboard, to: "/dashboard" },
@@ -37,7 +49,7 @@ export default function SideNavbar() {
       {/* Logo Section */}
       <div className="p-4 relative">
         {!isCollapsed && (
-          <h1 className="text-xl font-bold bg-blue-900 bg-clip-text text-transparent">
+          <h1 className="text-xl font-bold bg-blue-900 dark:bg-blue-100 bg-clip-text text-transparent">
             Hirehunter.ai
           </h1>
         )}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -142,9 +142,20 @@ export const jobs = [
 
 export default function Jobs() {
   const [openJob, setOpenJob] = useState(null);
+  const [darkMode, setDarkMode] = useState(
+    document.documentElement.classList.contains("dark")
+  );
+
+  useEffect(() => {
+    if (darkMode) document.documentElement.classList.add("dark");
+    else document.documentElement.classList.remove("dark");
+  }, [darkMode]);
+
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <h1 className="text-3xl font-bold text-[#1C398E]">Job Openings</h1>
+      <h1 className="text-3xl font-bold text-[#1C398E] dark:text-indigo-400">
+        Job Openings
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {jobs.map((job) => (
           <Dialog
@@ -155,26 +166,26 @@ export default function Jobs() {
             }
           >
             <DialogTrigger asChild>
-              <Card className="cursor-pointer hover:shadow-lg transition-shadow duration-300 border border-[#F15946]/20">
+              <Card className="cursor-pointer hover:shadow-lg transition-shadow duration-300 border border-[#F15946]/20 dark:bg-slate-800 dark:border-slate-600">
                 <CardHeader>
-                  <CardTitle className="text-lg text-[#1C398E]">
+                  <CardTitle className="text-lg text-[#1C398E] dark:text-indigo-300">
                     {job.title}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-[#71717B]">
+                  <CardDescription className="text-[#71717B] dark:text-gray-300">
                     Click to view details about this position.
                   </CardDescription>
                 </CardContent>
               </Card>
             </DialogTrigger>
-            <DialogContent className="w-[90vw] max-w-4xl md:max-w-3xl lg:max-w-4xl">
+            <DialogContent className="w-[90vw] max-w-4xl md:max-w-3xl lg:max-w-4xl dark:bg-slate-900 dark:text-gray-100">
               <DialogHeader>
-                <DialogTitle className="text-2xl text-[#1C398E]">
+                <DialogTitle className="text-2xl text-[#1C398E] dark:text-indigo-300">
                   {job.title}
                 </DialogTitle>
               </DialogHeader>
-              <DialogDescription className="text-[#71717B] whitespace-pre-line max-h-[70vh] overflow-y-auto">
+              <DialogDescription className="whitespace-pre-line max-h-[70vh] overflow-y-auto">
                 {job.description}
               </DialogDescription>
               <div className="mt-4 flex justify-end">

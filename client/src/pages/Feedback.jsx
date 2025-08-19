@@ -43,7 +43,10 @@ export default function Feedback() {
 
   return (
     <div className="p-6 space-y-6 bg-white dark:bg-gray-900 rounded-2xl">
-      <h1 className="ml-5 mt-5 font-helv-bold text-4xl">Feedback</h1>
+      <h1 className="ml-5 mt-5 font-helv-bold text-4xl text-gray-900 dark:text-white">
+        Feedback
+      </h1>
+
       {/* Top buttons */}
       <div className="flex justify-end gap-3">
         <Button
@@ -64,16 +67,16 @@ export default function Feedback() {
           <motion.div
             key={candidate.id}
             whileHover={{ scale: 1.02 }}
-            className="p-4 bg-white shadow-md rounded-xl flex justify-between items-center"
+            className="p-4 bg-gray-50 dark:bg-gray-800 shadow-md dark:shadow-gray-700 rounded-xl flex justify-between items-center"
           >
             <div>
-              <p className="font-semibold">
+              <p className="font-semibold text-gray-900 dark:text-white">
                 {candidate.name}{" "}
-                <span className="text-gray-500 text-sm">
+                <span className="text-gray-500 dark:text-gray-400 text-sm">
                   ({candidate.email})
                 </span>
               </p>
-              <p className="text-sm text-gray-500">Rejected</p>
+              <p className="text-sm text-red-600 dark:text-red-400">Rejected</p>
             </div>
             <Button
               variant="outline"
@@ -91,9 +94,9 @@ export default function Feedback() {
 
       {/* Modal */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent className="bg-white dark:bg-gray-900">
           <DialogHeader>
-            <DialogTitle>
+            <DialogTitle className="text-gray-900 dark:text-white">
               {bulkMode
                 ? "Bulk Message to Rejected Candidates"
                 : selectedCandidate
@@ -104,7 +107,7 @@ export default function Feedback() {
 
           <input
             type="text"
-            className="w-full p-2 border rounded-md focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-2 border border-gray-300 dark:border-gray-700 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-indigo-500"
             onChange={(e) => {
               const key = bulkMode
                 ? "bulk"
@@ -116,7 +119,7 @@ export default function Feedback() {
           />
 
           <DialogFooter>
-            <Button onClick={handleSend}>
+            <Button>
               <Send className="mr-2 h-4 w-4" /> Send
             </Button>
           </DialogFooter>

@@ -7,7 +7,12 @@ export default function SchedulerWithCalendly() {
   const candidates = resumes.filter((r) => r.selected);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  if (!candidates.length) return <p className="p-8">No candidates selected.</p>;
+  if (!candidates.length)
+    return (
+      <p className="p-8 text-gray-700 dark:text-gray-300">
+        No candidates selected.
+      </p>
+    );
 
   const candidate = candidates[currentIndex];
 
@@ -21,14 +26,14 @@ export default function SchedulerWithCalendly() {
   };
 
   return (
-    <div className="p-8 max-w-6xl mx-auto space-y-4 bg-white dark:bg-gray-900 rounded-2xl">
-      <h2 className="text-xl font-bold mb-4">
+    <div className="p-8 max-w-6xl mx-auto space-y-6 bg-white dark:bg-gray-900 rounded-2xl shadow-lg dark:shadow-gray-800">
+      <h2 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
         Scheduling for: {candidate.name}
       </h2>
 
       <iframe
         src={calendlyUrl}
-        className="w-full h-[700px] border rounded-lg"
+        className="w-full h-[700px] border rounded-lg border-gray-200 dark:border-gray-700"
       ></iframe>
 
       {candidates.length > 1 && (
