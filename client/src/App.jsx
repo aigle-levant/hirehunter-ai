@@ -9,6 +9,7 @@ import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
 import Jobs from "./pages/Jobs";
 import Resumes from "./pages/Resumes";
+import Feedback from "./pages/Feedback";
 import Default from "./layout/Default";
 import Auth from "./layout/Auth";
 import DashboardLayout from "./layout/DashboardLayout";
@@ -33,6 +34,7 @@ export default function App() {
         <Route path="/scan" element={<Resumes />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="/schedule" element={<Schedule />} />
+        <Route path="/feedback" element={<Feedback />} />
       </Route>
 
       <Route path="*" element={<NotFound />} />

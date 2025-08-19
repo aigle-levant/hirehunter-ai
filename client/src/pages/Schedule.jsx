@@ -21,7 +21,7 @@ export default function SchedulerWithCalendly() {
   };
 
   return (
-    <div className="p-8 max-w-4xl mx-auto space-y-4">
+    <div className="p-8 max-w-6xl mx-auto space-y-4 bg-white dark:bg-gray-900 rounded-2xl">
       <h2 className="text-xl font-bold mb-4">
         Scheduling for: {candidate.name}
       </h2>
