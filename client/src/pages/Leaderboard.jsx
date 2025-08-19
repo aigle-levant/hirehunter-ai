@@ -18,21 +18,13 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 export default function Leaderboard() {
   const resumes = useResumes((state) => state.resumes);
+  const toggleSelect = useResumes((state) => state.toggleSelect);
 
-  const [sortField, setSortField] = useState("hirescore"); // hirescore | yoe
+  const [sortField, setSortField] = useState("hirescore");
   const [sortAsc, setSortAsc] = useState(false);
   const [showAll, setShowAll] = useState(false);
-  const [selected, setSelected] = useState([]);
   const [skillFilter, setSkillFilter] = useState("");
   const [search, setSearch] = useState("");
-
-  const toggleSelect = (email) => {
-    setSelected((prev) =>
-      prev.includes(email)
-        ? prev.filter((id) => id !== email)
-        : [...prev, email]
-    );
-  };
 
   // Filtering
   let filteredResumes = resumes.filter((r) => {
@@ -61,6 +53,9 @@ export default function Leaderboard() {
 
   const displayResumes = showAll ? sortedResumes : sortedResumes.slice(0, 5);
   const rankColors = ["text-yellow-500", "text-gray-400", "text-amber-600"];
+
+  // count selected from store
+  const selectedCount = resumes.filter((r) => r.selected).length;
 
   return (
     <Card className="w-full max-w-4xl mx-auto p-6">
@@ -111,12 +106,9 @@ export default function Leaderboard() {
             <ArrowUpDown className="w-4 h-4" />
             {sortAsc ? "Ascending" : "Descending"}
           </Button>
-          {selected.length > 0 ? (
-            <Button
-              variant="outline"
-              onClick={() => console.log("Schedule interviews")}
-              className="flex items-center gap-2"
-            >
+
+          {selectedCount > 0 ? (
+            <Button variant="outline" className="flex items-center gap-2">
               <a href="/schedule">Schedule an interview</a>
             </Button>
           ) : (
@@ -166,7 +158,7 @@ export default function Leaderboard() {
 
                 {/* Selection */}
                 <Checkbox
-                  checked={selected.includes(r.email)}
+                  checked={r.selected}
                   onCheckedChange={() => toggleSelect(r.email)}
                 />
               </motion.div>
