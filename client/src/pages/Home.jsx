@@ -16,7 +16,7 @@ export default function Home() {
 
   useEffect(() => {
     // 1) show your LoadingScreen for ~2.6–3s (tweak to taste)
-    const t1 = setTimeout(() => setPhase("transition"), 2600);
+    const t1 = setTimeout(() => setPhase("transition"), 2500);
     return () => clearTimeout(t1);
   }, []);
 
@@ -30,7 +30,7 @@ export default function Home() {
 
       <div
         className={`transition-opacity duration-700 ${
-          phase === "content" ? "opacity-100" : "opacity-0"
+          phase === "content" ? "opacity-100" : "opacity-100"
         }`}
       >
         <section id="home">

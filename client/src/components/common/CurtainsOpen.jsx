@@ -21,7 +21,7 @@ export default function CurtainsOpen({ onComplete }) {
       variants={variants}
     >
       {/* Top color layer (Adaline-esque brand wipe) */}
-      <div className="absolute inset-0 bg-[#193CB8]" />
+      <div className="absolute inset-0 bg-[#f1f1f1] dark:bg-[#232323]" />
       {/* Subtle grain overlay for premium feel */}
       <div
         className="absolute inset-0 opacity-[0.06] mix-blend-overlay pointer-events-none"
