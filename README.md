@@ -41,9 +41,8 @@ All on one sleek, judgment-free dashboard.
 > “Here are 3 candidates who match your hiring criteria. Would you like me to schedule interviews?”  
 > – *HireHunter Agent*
 
-<img width="1573" height="791" alt="image" src="https://github.com/user-attachments/assets/f5d9c7bd-f810-48af-83d9-f533aa01f6e2" />
-
-<img width="1021" height="425" alt="image" src="https://github.com/user-attachments/assets/093c6295-46a0-4b07-9cbf-893b742bc8de" />
+<img width="1891" height="877" alt="image" src="https://github.com/user-attachments/assets/481dd666-9976-4835-9e4f-e41d36fa3804" />
+<img width="1018" height="680" alt="image" src="https://github.com/user-attachments/assets/a91f273c-4f85-4dc9-a512-67385f8ebe1f" />
 
 ## 🔧 Tech Stack
 
