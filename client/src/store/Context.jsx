@@ -6,18 +6,15 @@ import { jobs } from "@/data/jobs";
 export const useResumes = create(
   persist(
     (set) => ({
-      resumes: mockResumes,
-
-      // dynamic state (starts empty)
+      resumes: mockResumes, // all uploaded candidates
       keywords: [],
-
-      // static job list
       jobs: jobs,
 
-      // resumes
+      // add resumes
       addResumes: (newResumes) =>
         set((state) => ({ resumes: [...state.resumes, ...newResumes] })),
 
+      // remove a resume
       removeResume: (email) =>
         set((state) => ({
           resumes: state.resumes.filter((r) => r.email !== email),
@@ -25,6 +22,7 @@ export const useResumes = create(
 
       discardAll: () => set({ resumes: [] }),
 
+      // toggle candidate selection
       toggleSelect: (email) =>
         set((state) => ({
           resumes: state.resumes.map((r) =>
@@ -32,10 +30,19 @@ export const useResumes = create(
           ),
         })),
 
+      // update candidate (status, skills, etc.)
       updateResume: (email, data) =>
         set((state) => ({
           resumes: state.resumes.map((r) =>
             r.email === email ? { ...r, ...data } : r
+          ),
+        })),
+
+      // **Set status for rejected candidates automatically**
+      setRejectedCandidates: () =>
+        set((state) => ({
+          resumes: state.resumes.map((r) =>
+            r.selected ? r : { ...r, status: "rejected" }
           ),
         })),
 
@@ -47,12 +54,10 @@ export const useResumes = create(
       setJobs: (jobs) => set({ jobs }),
       addJob: (job) => set((state) => ({ jobs: [...state.jobs, job] })),
       removeJob: (title) =>
-        set((state) => ({
-          jobs: state.jobs.filter((j) => j.title !== title),
-        })),
+        set((state) => ({ jobs: state.jobs.filter((j) => j.title !== title) })),
     }),
     {
-      name: "resumes-storage", // key in localStorage
+      name: "resumes-storage",
     }
   )
 );

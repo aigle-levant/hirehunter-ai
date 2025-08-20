@@ -9,7 +9,7 @@ import {
 
 export default function ProblemStatement() {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: false });
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const [mouse, setMouse] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -47,68 +47,58 @@ export default function ProblemStatement() {
   return (
     <div
       ref={sectionRef}
-      className="relative min-h-screen w-full px-8 py-20 bg-white dark:bg-gray-950 overflow-hidden"
+      className="relative w-full min-h-screen flex flex-col items-center justify-center px-6 py-20 overflow-hidden bg-gradient-to-br from-[#155dfc]/5 via-[#1c398e]/10 to-[#155dfc]/5 dark:from-[#1c1c2c]/5 dark:via-[#2c2c3a]/10 dark:to-[#1c1c2c]/5"
     >
-      {/* Background grid */}
-      <div
-        className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] 
-        dark:bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] 
-        bg-[size:50px_50px]"
-      />
-
-      {/* Title section */}
-      <div className="relative z-10 max-w-4xl mx-auto text-center space-y-6">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="inline-flex px-5 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-400 text-sm font-semibold backdrop-blur-lg"
-        >
+      {/* Section Title */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={isInView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8 }}
+        className="relative z-10 max-w-4xl mx-auto text-center space-y-6"
+      >
+        <div className="inline-flex px-5 py-2 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-600 dark:text-blue-400 text-sm font-semibold backdrop-blur-lg">
           System Failure
-        </motion.div>
+        </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl lg:text-5xl font-semibold leading-tight text-black dark:text-white"
-        >
-          Hiring is{" "}
-          <span className="bg-gradient-to-r from-blue-900 via-blue-600 to-blue-900 bg-clip-text text-transparent font-bold">
-            catastrophically
-          </span>{" "}
-          broken
-        </motion.h1>
+        <h1 className="text-4xl lg:text-5xl font-bold font-basier-circle leading-tight text-black dark:text-white">
+          Hiring in 2025 is{" "}
+          <span className="font-italics italic">catastrophically</span> broken
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-lg lg:text-xl text-black/70 dark:text-gray-400 max-w-2xl mx-auto"
-        >
+        <p className="text-lg lg:text-xl text-black/70 font-body dark:text-gray-400 max-w-2xl mx-auto">
           The talent acquisition industry is in crisis. Everyone loses in the
           current system.
-        </motion.p>
-      </div>
+        </p>
+      </motion.div>
 
-      {/* Problem cards */}
+      {/* Problem Cards with staggered scroll reveal */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.5 }}
-        className="relative z-10 mt-16 grid md:grid-cols-3 gap-6 max-w-7xl mx-auto"
+        initial="hidden"
+        animate={isInView ? "visible" : "hidden"}
+        variants={{
+          hidden: {},
+          visible: { transition: { staggerChildren: 0.2 } },
+        }}
+        className="relative z-10 mt-16 grid md:grid-cols-3 gap-6 max-w-7xl w-full"
       >
         {problems.map((p, i) => (
           <motion.div
             key={i}
-            whileHover={{ scale: 1.05, y: -10 }}
-            style={{
-              transform: `rotateX(${mouse.y}deg) rotateY(${mouse.x}deg)`,
+            variants={{
+              hidden: { opacity: 0, y: 40 },
+              visible: { opacity: 1, y: 0 },
             }}
-            className="relative p-6 bg-white/10 dark:bg-gray-800/20 backdrop-blur-xl border border-white/20 rounded-2xl shadow-lg"
+            whileHover={{ scale: 1.05, y: -10 }}
+            animate={{
+              rotateX: mouse.y,
+              rotateY: mouse.x,
+              y: [0, -5, 0],
+            }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="relative p-6 bg-white/10 dark:bg-gray-800/20 backdrop-blur-xl border border-white/20 rounded-2xl shadow-lg cursor-pointer"
           >
-            <div className="relative z-10 space-y-4">
-              <div className="text-blue-600 dark:text-blue-400">{p.icon}</div>
+            <div className="space-y-4">
+              {p.icon}
               <h3 className="text-xl font-semibold text-black dark:text-white">
                 {p.title}
               </h3>
@@ -123,18 +113,26 @@ export default function ProblemStatement() {
         ))}
       </motion.div>
 
-      {/* Solution teaser */}
+      {/* Solution Teaser Button */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 50 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.8, delay: 0.6 }}
         className="relative z-10 mt-20 flex flex-col items-center space-y-6"
       >
-        <div className="inline-flex items-center px-6 py-3 bg-white/10 dark:bg-gray-800/30 border border-white/20 backdrop-blur-lg rounded-2xl">
-          <span className="text-xl lg:text-2xl font-bold bg-blue-700 bg-clip-text text-transparent">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          animate={{
+            rotateX: mouse.y * 0.5,
+            rotateY: mouse.x * 0.5,
+          }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="inline-flex items-center px-6 py-3 backdrop-blur-lg rounded-2xl cursor-pointer"
+        >
+          <span className="text-xl lg:text-6xl font-basier-circle font-bold bg-blue-900 bg-clip-text text-transparent">
             But we have the antidote
           </span>
-        </div>
+        </motion.div>
       </motion.div>
     </div>
   );

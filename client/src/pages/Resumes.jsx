@@ -3,11 +3,15 @@ import { Button } from "@/components/ui/button";
 import { X, ArrowRight, Upload } from "lucide-react";
 import { useResumes } from "@/store/Context"; // Zustand store
 import { mockResumes } from "@/data/mockResumes";
+import { setLeaderboardCandidates } from "@/data/selected";
 
 export default function Resumes() {
   const { resumes, addResumes, removeResume, discardAll, updateResume } =
     useResumes();
-
+  const handleGoToLeaderboard = () => {
+    // send all resumes to the JS file
+    setLeaderboardCandidates(resumes);
+  };
   const handleUpload = (e) => {
     const files = Array.from(e.target.files).map((file) => {
       const candidate =
@@ -15,16 +19,16 @@ export default function Resumes() {
 
       return {
         id: Date.now() + Math.random(),
-        ...candidate,
-        fileName: file.name,
+        ...candidate, // candidate.name, email, etc.
+        fileName: file.name, // uploaded file name
         status: "Analyzing...",
         selected: false,
       };
     });
 
-    // Filter out duplicates based on email
+    // Filter out duplicates by candidate name against current resumes in store
     const uniqueFiles = files.filter(
-      (file) => !resumes.some((r) => r.email === file.email)
+      (file) => !resumes.some((r) => r.name === file.name)
     );
 
     if (uniqueFiles.length < files.length) {
@@ -33,7 +37,7 @@ export default function Resumes() {
 
     addResumes(uniqueFiles);
 
-    // simulate async analysis
+    // Simulate async analysis
     setTimeout(() => {
       uniqueFiles.forEach((resume) => {
         updateResume(resume.email, { status: "HireScore ready!" });
@@ -150,8 +154,11 @@ export default function Resumes() {
           >
             Discard All
           </Button>
-          <Button className="px-6 py-3 flex items-center font-body gap-2 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
-            <a href="/leaderboard">Go to leaderboard</a>{" "}
+          <Button
+            className="px-6 py-3 flex items-center font-body gap-2 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105"
+            onClick={() => setLeaderboardCandidates(resumes)}
+          >
+            <a href="/leaderboard">Go to leaderboard</a>
             <ArrowRight className="w-4 h-4" />
           </Button>
         </div>

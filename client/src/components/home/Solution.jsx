@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
+  CardDescription,
+  CardFooter,
 } from "@/components/ui/card";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sticker, ListOrdered, Calendar } from "lucide-react";
@@ -40,12 +40,8 @@ const features = [
 
 export default function Solution() {
   const [index, setIndex] = useState(0);
-
-  // reveal on scroll
-  const { ref, inView } = useInView({
-    triggerOnce: true,
-    threshold: 0.15,
-  });
+  const [mouse, setMouse] = useState({ x: 0, y: 0 });
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.15 });
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -54,50 +50,47 @@ export default function Solution() {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const handleMove = (e) => {
+      setMouse({
+        x: (e.clientX - window.innerWidth / 2) * 0.01,
+        y: (e.clientY - window.innerHeight / 2) * 0.01,
+      });
+    };
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
+
   return (
     <section
       id="solution"
       ref={ref}
       className="relative overflow-hidden py-24 px-6 md:px-16 
-                 bg-gradient-to-b from-white to-gray-50 
-                 dark:from-zinc-950 dark:to-zinc-900 
-                 text-gray-900 dark:text-gray-200"
+                 bg-white dark:bg-gray-900"
     >
-      {/* ✨ fadey background overlay */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 inset-x-0 h-40 bg-gradient-to-b dark:from-black/10 from-white/10 to-transparent "></div>
-        <div className="absolute -top-20 -right-32 w-96 h-96 rounded-full  blur-3xl"></div>
-        <div className="absolute bottom-0 -left-32 w-96 h-96 rounded-full  blur-3xl"></div>
-      </div>
-
+      {/* Main content */}
       <motion.div
         initial={{ opacity: 0, y: 80, scale: 0.95 }}
         animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
         transition={{ duration: 0.9, ease: "easeOut" }}
-        className="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center"
+        className="relative max-w-6xl mx-auto grid md:grid-cols-2 gap-14 items-center z-10"
       >
         {/* LEFT: Intro */}
         <div className="relative space-y-6">
-          <h2 className="text-4xl md:text-5xl font-helv-bold font-extrabold leading-tight">
-            Meet{" "}
-            <span className="bg-gradient-to-r from-blue-700 dark:from-blue-500 via-blue-950 dark:via-gray-200 to-blue-800 bg-clip-text text-transparent">
-              Hirehunter
-            </span>
+          <h2 className="text-4xl md:text-5xl font-basier-circle font-bold leading-tight">
+            Meet Hirehunter
           </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-lg">
+          <p className="text-lg text-gray-600 font-body dark:text-gray-400 max-w-lg">
             Your AI hiring buddy that replaces bias with data and guesswork with
             clarity. Because hiring should be about potential, not privilege.
           </p>
 
           {/* Mini buddy */}
           <div className="flex items-center gap-3 mt-8">
-            <div
-              className="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/30 
-                          shadow-lg shadow-blue-500/20 flex items-center justify-center"
-            >
+            <div className="w-16 h-16 rounded-full bg-blue-500/10 border border-blue-500/30 shadow-lg shadow-blue-500/20 flex items-center justify-center">
               <Sticker className="w-9 h-9 text-blue-500" />
             </div>
-            <span className="text-xl font-semibold text-blue-600 dark:text-blue-400">
+            <span className="text-xl font-basier-circle font-bold text-blue-600 dark:text-blue-400">
               Say hi to Hunter!
             </span>
           </div>
@@ -109,21 +102,23 @@ export default function Solution() {
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
+              animate={{
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                rotateX: mouse.y,
+                rotateY: mouse.x,
+              }}
               exit={{ opacity: 0, y: -50, scale: 0.95 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             >
               <Card
-                className={`relative bg-gradient-to-b ${features[index].accent} 
-                             dark:bg-zinc-800/80 
-                             border border-gray-200/40 dark:border-zinc-700/40 
-                             rounded-2xl shadow-xl p-6 backdrop-blur-md 
-                             hover:shadow-2xl transition-all duration-300`}
+                className={`relative bg-white/10 dark:bg-gray-800/20 border border-white/20 rounded-2xl shadow-xl p-6 backdrop-blur-md hover:shadow-2xl transition-all duration-300 font-body`}
               >
                 <CardHeader>
                   <div className="flex items-center gap-4 mb-3">
                     {features[index].icon}
-                    <CardTitle className="text-xl font-bold">
+                    <CardTitle className="text-xl font-basier-circle font-bold">
                       {features[index].title}
                     </CardTitle>
                   </div>

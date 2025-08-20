@@ -10,4 +10,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  server: {
+    host: true, // listen on all network interfaces
+    port: 5173, // your dev server port
+    strictPort: false,
+    allowedHosts: [".ngrok-free.app"], // allow any ngrok subdomain
+  },
 });

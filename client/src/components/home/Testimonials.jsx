@@ -37,11 +37,11 @@ export default function Testimonials() {
   return (
     <section className="w-full py-20 px-6 bg-gradient-to-b from-white to-blue-50 dark:from-zinc-950 dark:to-zinc-900">
       <div className="mx-auto">
-        <h2 className="text-center text-3xl font-medium text-gray-800 dark:text-gray-100 mb-12">
+        <h2 className="text-center text-5xl font-basier-circle font-bold text-gray-800 dark:text-gray-100 mb-12">
           Real voices. Real impact.
         </h2>
 
-        <div className="relative flex flex-col items-center">
+        <div className="relative flex flex-col items-center font-body">
           <AnimatePresence mode="wait">
             <motion.div
               key={index}
