@@ -60,11 +60,11 @@ export default function MainContent() {
 
   const StatCard = ({ icon: Icon, value, label }) => (
     <motion.div
-      whileHover={{ y: -3, scale: 1.02 }}
-      className="relative p-6 rounded-2xl bg-blue-50 dark:bg-gray-800 shadow-md dark:shadow-gray-700"
+      whileHover={{ y: -4, scale: 1.03 }}
+      className="p-6 rounded-2xl bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700"
     >
-      <Icon className="w-8 h-8 text-blue-600 dark:text-blue-400" />
-      <p className="text-2xl font-bold mt-2 text-gray-900 dark:text-white">
+      <Icon className="w-7 h-7 text-blue-600 dark:text-blue-400" />
+      <p className="text-2xl font-semibold mt-2 text-gray-900 dark:text-white">
         {value}
       </p>
       <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">{label}</p>
@@ -73,100 +73,101 @@ export default function MainContent() {
 
   const CandidateCard = ({ candidate, index }) => (
     <motion.div
-      initial={{ opacity: 0, y: 20 * (index + 1) }}
+      initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      whileHover={{ y: -5, scale: 1.02 }}
-      className="bg-white dark:bg-gray-800 rounded-xl p-5 shadow-md dark:shadow-gray-700 border-l-4 border-blue-600 mb-4"
+      transition={{ duration: 0.4, delay: index * 0.1 }}
+      whileHover={{ y: -3, scale: 1.01 }}
+      className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700"
     >
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-3">
-          <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold">
+          <div className="w-12 h-12 rounded-xl bg-blue-600 flex items-center justify-center text-white font-semibold">
             {candidate.avatar}
           </div>
           <div>
-            <p className="font-bold text-gray-900 dark:text-white">
+            <p className="font-semibold text-gray-900 dark:text-white">
               {candidate.name}
             </p>
             <p className="flex items-center gap-1 text-gray-500 dark:text-gray-400 text-sm">
-              <MapPin className="w-3 h-3 text-blue-600 dark:text-blue-400" />{" "}
+              <MapPin className="w-3 h-3 text-blue-500 dark:text-blue-400" />{" "}
               {candidate.location}
             </p>
           </div>
         </div>
-        <div className="text-right font-helv-bold relative w-12 h-12">
+        {/* Circular progress */}
+        <div className="relative w-12 h-12">
           <svg viewBox="0 0 36 36" className="w-12 h-12 rotate-[-90deg]">
             <circle
               cx="18"
               cy="18"
               r="15.9155"
-              stroke="#E5E7EB"
+              stroke="currentColor"
+              className="text-gray-200 dark:text-gray-700"
               strokeWidth="3"
               fill="none"
-              className="dark:stroke-gray-700"
             />
             <motion.circle
               cx="18"
               cy="18"
               r="15.9155"
-              stroke="#3B82F6"
+              stroke="currentColor"
+              className="text-blue-600 dark:text-blue-400"
               strokeWidth="3"
               strokeDasharray={`${candidate.score}, 100`}
               initial={{ strokeDashoffset: 100 }}
               animate={{ strokeDashoffset: 0 }}
-              transition={{ duration: 1.2 }}
+              transition={{ duration: 1 }}
               fill="none"
-              className="dark:stroke-blue-400"
             />
           </svg>
-          <span className="absolute inset-0 flex items-center justify-center text-sm font-bold text-gray-900 dark:text-white">
+          <span className="absolute inset-0 flex items-center justify-center text-sm font-semibold text-gray-900 dark:text-white">
             {candidate.score}
           </span>
         </div>
       </div>
       <div className="flex justify-between items-center mt-4">
-        <span className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-300 text-xs">
+        <span className="px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 text-xs font-medium">
           {candidate.status}
         </span>
-        <ChevronRight className="w-4 h-4 text-gray-900 dark:text-white" />
+        <ChevronRight className="w-4 h-4 text-gray-500 dark:text-gray-300" />
       </div>
     </motion.div>
   );
 
   const FeedbackCard = ({ item }) => (
-    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-md dark:shadow-gray-700 border-1 border-blue-100 dark:border-gray-700">
-      <p className="font-bold text-gray-900 dark:text-white">{item.name}</p>
+    <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700">
+      <p className="font-semibold text-gray-900 dark:text-white">{item.name}</p>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
         {item.role}
       </p>
       <p className="text-gray-700 dark:text-gray-300 italic">
-        "{item.comment}"
+        “{item.comment}”
       </p>
     </div>
   );
 
   return (
-    <div className="min-h-screen px-12 py-8 bg-white dark:bg-gray-900 rounded-2xl">
-      {/* Stats Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+    <div className="min-h-screen px-10 py-6 bg-gray-50 dark:bg-gray-900 transition-colors">
+      {/* Stats */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 mt-4 lg:grid-cols-4 gap-6 mb-14">
         {stats.map((stat, idx) => (
           <StatCard key={idx} {...stat} />
         ))}
       </div>
 
-      {/* Top Candidates */}
-      <div className="flex flex-col xl:flex-row gap-12">
-        <div className="xl:w-2/3">
+      {/* Candidates + Sidebar */}
+      <div className="flex flex-col xl:flex-row gap-10">
+        <div className="xl:w-2/3 space-y-6">
           {candidates.map((c, idx) => (
             <CandidateCard key={idx} candidate={c} index={idx} />
           ))}
         </div>
 
-        {/* Right Panel */}
-        <div className="xl:w-1/3 space-y-6">
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md dark:shadow-gray-700 p-6 border-l-4 border-blue-600">
-            <h3 className="font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
-              <Calendar className="w-5 h-5 text-blue-600 dark:text-blue-400" />{" "}
+        <div className="xl:w-1/3 space-y-8">
+          {/* Schedule */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+            <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
+              <Calendar className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               Schedule
             </h3>
             <div className="flex flex-col gap-3">
@@ -179,8 +180,8 @@ export default function MainContent() {
                   10:00 AM
                 </span>
               </div>
-              <div className="flex justify-between p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg">
-                <Users className="w-4 h-4 text-orange-500 dark:text-orange-400" />
+              <div className="flex justify-between p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg">
+                <Users className="w-4 h-4 text-amber-500 dark:text-amber-400" />
                 <span className="font-medium text-gray-900 dark:text-white">
                   Team Review
                 </span>
@@ -191,12 +192,13 @@ export default function MainContent() {
             </div>
           </div>
 
-          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md dark:shadow-gray-700 p-6 border-l border-blue-100 dark:border-gray-700">
-            <h3 className="font-bold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
-              <Eye className="w-5 h-5 text-blue-500 dark:text-blue-400" />{" "}
+          {/* Performance */}
+          <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 p-6">
+            <h3 className="font-semibold text-gray-900 dark:text-white flex items-center gap-2 mb-4">
+              <Eye className="w-5 h-5 text-blue-600 dark:text-blue-400" />
               Performance
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-4">
               {[
                 { label: "Interview Success", value: 92 },
                 { label: "Response Rate", value: 78 },
@@ -205,13 +207,13 @@ export default function MainContent() {
                 <div key={idx}>
                   <div className="flex justify-between text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">
                     {metric.label}
-                    <span className="font-bold text-gray-900 dark:text-white">
+                    <span className="font-semibold text-gray-900 dark:text-white">
                       {metric.value}%
                     </span>
                   </div>
                   <div className="w-full h-2 bg-gray-200 dark:bg-gray-700 rounded-full">
                     <div
-                      className="h-2 bg-blue-500 dark:bg-blue-400 rounded-full"
+                      className="h-2 bg-blue-600 dark:bg-blue-400 rounded-full"
                       style={{ width: `${metric.value}%` }}
                     ></div>
                   </div>
@@ -222,9 +224,9 @@ export default function MainContent() {
         </div>
       </div>
 
-      {/* Feedback Section */}
-      <div className="mt-12 space-y-6">
-        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+      {/* Feedback */}
+      <div className="mt-14 space-y-6">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
           Recent Feedback
         </h2>
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">

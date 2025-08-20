@@ -60,7 +60,9 @@ export default function Leaderboard() {
   return (
     <Card className="w-full max-w-4xl mx-auto p-6">
       <CardHeader>
-        <CardTitle className="text-3xl text-center">Leaderboard</CardTitle>
+        <CardTitle className="text-3xl text-center font-basier-circle font-bold">
+          Leaderboard
+        </CardTitle>
       </CardHeader>
       <CardContent>
         {/* Controls */}
@@ -151,7 +153,9 @@ export default function Leaderboard() {
                 </div>
 
                 {/* HireScore */}
-                <p className="w-1/5 text-indigo-600 font-bold">{r.hirescore}</p>
+                <p className="w-1/5 text-blue-600 dark:text-blue-300 font-bold">
+                  {r.hirescore}
+                </p>
 
                 {/* YoE */}
                 <p className="w-1/5 text-gray-600">YoE: {r.yoe}</p>

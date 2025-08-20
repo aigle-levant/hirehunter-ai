@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Send } from "lucide-react";
-import { motion } from "framer-motion";
+import { Send, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,8 +11,10 @@ import {
 import { mockResumes } from "@/data/mockResumes";
 
 export default function Feedback() {
-  // Only rejected candidates
-  const rejectedCandidates = mockResumes.filter((r) => r.status === "rejected");
+  // Only rejected candidates initially
+  const [candidates, setCandidates] = useState(
+    mockResumes.filter((r) => r.status === "rejected")
+  );
 
   const [open, setOpen] = useState(false);
   const [bulkMode, setBulkMode] = useState(false);
@@ -31,19 +32,27 @@ export default function Feedback() {
           messages["bulk"] || "Sorry candidate, you got rejected."
         }" to all rejected candidates`
       );
+      setCandidates([]); // remove all rows
     } else if (selectedCandidate) {
+      const msg = messages[selectedCandidate.id] || "Default AI Message";
       alert(
-        `Sent message to ${selectedCandidate.name} (${
-          selectedCandidate.email
-        }): "${messages[selectedCandidate.id] || "Default AI Message"}"`
+        `Sent message to ${selectedCandidate.name} (${selectedCandidate.email}): "${msg}"`
+      );
+
+      // Remove only the selected candidate
+      setCandidates((prev) =>
+        prev.filter((c) => (c.id === selectedCandidate.id ? false : true))
       );
     }
+
     setOpen(false);
+    setSelectedCandidate(null);
+    setBulkMode(false);
   };
 
   return (
-    <div className="p-6 space-y-6 bg-white dark:bg-gray-900 rounded-2xl">
-      <h1 className="ml-5 mt-5 font-helv-bold text-4xl text-gray-900 dark:text-white">
+    <div className="p-6 bg-white dark:bg-gray-900 rounded-2xl space-y-6">
+      <h1 className="text-4xl font-bold text-gray-900 dark:text-white text-center">
         Feedback
       </h1>
 
@@ -61,35 +70,63 @@ export default function Feedback() {
         </Button>
       </div>
 
-      {/* Feedback cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {rejectedCandidates.map((candidate) => (
-          <motion.div
-            key={candidate.id}
-            whileHover={{ scale: 1.02 }}
-            className="p-4 bg-gray-50 dark:bg-gray-800 shadow-md dark:shadow-gray-700 rounded-xl flex justify-between items-center"
-          >
-            <div>
-              <p className="font-semibold text-gray-900 dark:text-white">
-                {candidate.name}{" "}
-                <span className="text-gray-500 dark:text-gray-400 text-sm">
-                  ({candidate.email})
-                </span>
-              </p>
-              <p className="text-sm text-red-600 dark:text-red-400">Rejected</p>
-            </div>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setBulkMode(false);
-                setSelectedCandidate(candidate);
-                setOpen(true);
-              }}
-            >
-              Reply
-            </Button>
-          </motion.div>
-        ))}
+      {/* Table */}
+      <div className="overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
+        <table className="w-full table-auto text-left">
+          <thead className="bg-gray-50 dark:bg-gray-800">
+            <tr>
+              <th className="px-4 py-2 text-gray-700 dark:text-gray-200">
+                Name
+              </th>
+              <th className="px-4 py-2 text-gray-700 dark:text-gray-200">
+                Email
+              </th>
+
+              <th className="px-4 py-2 text-gray-700 dark:text-gray-200">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+            {candidates.map((candidate) => (
+              <tr
+                key={candidate.id}
+                className="hover:bg-gray-100 dark:hover:bg-gray-800"
+              >
+                <td className="px-4 py-2 text-gray-900 dark:text-gray-100">
+                  {candidate.name}
+                </td>
+                <td className="px-4 py-2 text-gray-700 dark:text-gray-300">
+                  {candidate.email}
+                </td>
+
+                <td className="px-4 py-2">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => {
+                      setBulkMode(false);
+                      setSelectedCandidate(candidate);
+                      setOpen(true);
+                    }}
+                  >
+                    Reply
+                  </Button>
+                </td>
+              </tr>
+            ))}
+            {candidates.length === 0 && (
+              <tr>
+                <td
+                  colSpan={4}
+                  className="text-center py-4 text-gray-500 dark:text-gray-400"
+                >
+                  No rejected candidates
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
       </div>
 
       {/* Modal */}
@@ -113,13 +150,13 @@ export default function Feedback() {
                 ? "bulk"
                 : selectedCandidate?.id
                 ? selectedCandidate.id
-                : "temp"; // fallback key
+                : "temp";
               handleMessageChange(key, e.target.value);
             }}
           />
 
           <DialogFooter>
-            <Button>
+            <Button onClick={handleSend}>
               <Send className="mr-2 h-4 w-4" /> Send
             </Button>
           </DialogFooter>

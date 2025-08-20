@@ -1,25 +1,19 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useState, useEffect } from "react";
-import { X, Plus, ArrowRight, Moon, Sun } from "lucide-react";
-import { jobs } from "../../pages/Jobs";
+import { X, Plus, ArrowRight, RotateCcw, Loader2 } from "lucide-react";
 import { useResumes } from "@/store/Context";
 import { Link } from "react-router-dom";
+
+import { jobs } from "@/data/jobs";
+import { keywords as jobKeywords } from "@/data/keywords";
 
 export default function JDInput() {
   const [jobDescriptions, setJobDescriptions] = useState([""]);
   const [loading, setLoading] = useState(false);
-  const { keywords, setKeywords } = useResumes(); // ✅ from store
+  const [progress, setProgress] = useState(0);
 
-  // Dark mode state
-  const [darkMode, setDarkMode] = useState(
-    document.documentElement.classList.contains("dark")
-  );
-
-  useEffect(() => {
-    if (darkMode) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-  }, [darkMode]);
+  const { keywords, setKeywords } = useResumes();
 
   const handleChange = (index, value) => {
     const updated = [...jobDescriptions];
@@ -41,7 +35,8 @@ export default function JDInput() {
 
   const handleSelectJob = (title) => {
     const job = jobs.find((j) => j.title === title);
-    const jobKey = jobKeywords.find((j) => j.title === title);
+    const jobKey = jobKeywords.find((k) => k.title === title);
+
     if (job && jobKey) {
       setJobDescriptions([...jobDescriptions, job.description]);
       setKeywords([...keywords, { jd: job.title, keywords: jobKey.keywords }]);
@@ -50,11 +45,37 @@ export default function JDInput() {
 
   const handleProceed = () => {
     setLoading(true);
-    const res = jobDescriptions.map((jd) => {
-      const found = jobKeywords.find((j) => jd.includes(j.title));
-      return found || { jd, keywords: ["sample", "keywords"] };
-    });
-    setKeywords(res);
+    setProgress(0);
+
+    let interval = setInterval(() => {
+      setProgress((p) => {
+        if (p >= 100) {
+          clearInterval(interval);
+
+          // After animation ends, compute keywords
+          const res = jobDescriptions.map((jd) => {
+            const match = jobs.find((j) => jd.includes(j.title));
+            const jobKey = match
+              ? jobKeywords.find((k) => k.title === match.title)
+              : null;
+
+            return jobKey
+              ? { jd: match.title, keywords: jobKey.keywords }
+              : { jd, keywords: ["sample", "keywords"] };
+          });
+
+          setKeywords(res);
+          setLoading(false);
+        }
+        return p + 10;
+      });
+    }, 200); // 2s total (200ms * 10 steps)
+  };
+
+  const handleReset = () => {
+    setJobDescriptions([""]);
+    setKeywords([]);
+    setProgress(0);
     setLoading(false);
   };
 
@@ -63,11 +84,8 @@ export default function JDInput() {
       {/* Header */}
       <div className="text-left space-y-3 w-full">
         <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-          Paste Your Job Description
+          Parse JDs
         </h2>
-        <p className="text-lg text-gray-600 dark:text-gray-300">
-          Select jobs or paste custom JDs to extract key requirements.
-        </p>
 
         <div className="flex flex-wrap gap-3">
           {jobs.map((job) => (
@@ -112,13 +130,30 @@ export default function JDInput() {
           <Plus className="w-4 h-4 mr-2" /> Add another
         </Button>
         <Button onClick={handleProceed} disabled={loading}>
-          {loading ? "Analyzing..." : "Proceed"}
-          <ArrowRight className="w-4 h-4 ml-2" />
+          {loading ? (
+            <>
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" /> Analyzing...
+            </>
+          ) : (
+            <>
+              Proceed <ArrowRight className="w-4 h-4 ml-2" />
+            </>
+          )}
         </Button>
       </div>
 
+      {/* Progress bar */}
+      {loading && (
+        <div className="w-full max-w-md bg-gray-200 dark:bg-gray-700 rounded-full h-3 overflow-hidden">
+          <div
+            className="bg-primary h-3 transition-all duration-200"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      )}
+
       {/* Extracted keywords */}
-      {keywords.length > 0 && (
+      {keywords.length > 0 && !loading && (
         <div className="w-full bg-muted p-6 rounded-xl dark:bg-slate-800">
           <h3 className="text-xl font-semibold mb-4 dark:text-gray-100">
             Extracted Keywords
@@ -144,7 +179,10 @@ export default function JDInput() {
             ))}
           </div>
 
-          <div className="mt-6 flex justify-center">
+          <div className="mt-6 flex gap-10 justify-center">
+            <Button variant="destructive" onClick={handleReset}>
+              <RotateCcw className="w-4 h-4 mr-2" /> Reset
+            </Button>
             <Link to="/scan">
               <Button>Go to Resumes</Button>
             </Link>

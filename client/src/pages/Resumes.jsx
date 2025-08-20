@@ -22,11 +22,20 @@ export default function Resumes() {
       };
     });
 
-    addResumes(files);
+    // Filter out duplicates based on email
+    const uniqueFiles = files.filter(
+      (file) => !resumes.some((r) => r.email === file.email)
+    );
+
+    if (uniqueFiles.length < files.length) {
+      alert("Some duplicates were ignored!");
+    }
+
+    addResumes(uniqueFiles);
 
     // simulate async analysis
     setTimeout(() => {
-      files.forEach((resume) => {
+      uniqueFiles.forEach((resume) => {
         updateResume(resume.email, { status: "HireScore ready!" });
       });
     }, 2000 + Math.random() * 2000);
@@ -37,26 +46,26 @@ export default function Resumes() {
   };
 
   return (
-    <section className="container bg-white dark:bg-gray-900 rounded-2xl mx-auto p-6 space-y-8">
-      <h1 className="text-4xl font-extrabold text-gray-900 dark:text-white text-center">
+    <section className="container bg-background rounded-2xl mx-auto p-6 space-y-8">
+      <h1 className="text-4xl font-basier-circle font-bold text-foreground text-center">
         Upload resumes
       </h1>
-      <p className="text-center text-gray-600 dark:text-gray-300">
+      <p className="text-center font-body text-muted-foreground">
         The secret HireScore will reveal the top talents automatically…
       </p>
 
       {/* Upload Section */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-4">
-        <label className="cursor-pointer flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition shadow-lg">
-          <Upload className="w-5 h-5" /> Upload Resumes
+        <label className="cursor-pointer flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-xl hover:bg-primary/90 transition shadow-lg">
+          <Upload className="w-5 h-5 " /> Upload Resumes
           <input
             type="file"
             multiple
             onChange={handleUpload}
-            className="hidden"
+            className="hidden font-body"
           />
         </label>
-        <span className="text-gray-500 dark:text-gray-300">
+        <span className="text-muted-foreground font-body">
           {resumes.length} candidate{resumes.length !== 1 && "s"} uploaded
         </span>
       </div>
@@ -67,29 +76,20 @@ export default function Resumes() {
           {resumes.map((resume) => (
             <div
               key={resume.id}
-              className="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-xl relative hover:scale-105 transition-transform duration-300"
+              className="font-body bg-card text-card-foreground p-5 rounded-2xl shadow-xl relative hover:scale-105 transition-transform duration-300"
             >
               <div className="flex justify-between items-center mb-3">
-                <p className="font-bold text-gray-900 dark:text-white">
-                  {resume.name}
-                </p>
+                <p className="font-basier-circle font-bold">{resume.name}</p>
                 <button
                   onClick={() => handleRemove(resume.email)}
-                  className="text-gray-400 hover:text-red-500"
+                  className="text-muted-foreground hover:text-destructive"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <p className="text-sm text-gray-500 dark:text-gray-300 mb-2">
+              <p className="text-sm text-muted-foreground mb-2">
                 Position: {resume.position}
-              </p>
-
-              <p className="text-2xl font-extrabold text-indigo-600 dark:text-indigo-400 mb-2">
-                {resume.hirescore}{" "}
-                <span className="text-gray-400 dark:text-gray-300 text-base">
-                  HireScore
-                </span>
               </p>
 
               <span
@@ -104,7 +104,7 @@ export default function Resumes() {
 
               {/* Strong Skills */}
               <div className="mt-3">
-                <p className="text-sm font-medium text-green-700 dark:text-green-400 mb-1">
+                <p className="text-sm font-bold font-basier-circle text-green-700 dark:text-green-400 mb-1">
                   Strong Skills:
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -121,7 +121,7 @@ export default function Resumes() {
 
               {/* Weak Skills */}
               <div className="mt-2">
-                <p className="text-sm font-medium text-red-600 dark:text-red-400 mb-1">
+                <p className="text-sm font-medium font-basier-circle text-red-600 dark:text-red-400 mb-1">
                   Weak Skills:
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -145,12 +145,12 @@ export default function Resumes() {
         <div className="flex flex-wrap gap-4 justify-center mt-8">
           <Button
             variant="outline"
-            className="px-6 py-3 text-red-600 border-red-200 hover:bg-red-50 dark:hover:bg-red-900/30 dark:text-red-400"
+            className="px-6 py-3 text-destructive border-destructive/30 hover:bg-destructive/10"
             onClick={discardAll}
           >
             Discard All
           </Button>
-          <Button className="px-6 py-3 bg-blue-900 hover:bg-blue-600 text-white dark:bg-indigo-800 dark:hover:bg-indigo-700 flex items-center gap-2 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+          <Button className="px-6 py-3 flex items-center font-body gap-2 shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
             <a href="/leaderboard">Go to leaderboard</a>{" "}
             <ArrowRight className="w-4 h-4" />
           </Button>
